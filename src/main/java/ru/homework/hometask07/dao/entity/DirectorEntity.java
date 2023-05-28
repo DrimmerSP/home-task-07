@@ -1,9 +1,13 @@
 package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "directors")
 public class DirectorEntity {
@@ -25,4 +29,6 @@ public class DirectorEntity {
             inverseJoinColumns = @JoinColumn(name = "film_id")
     )
     private List<FilmEntity> films;
+
+
 }
