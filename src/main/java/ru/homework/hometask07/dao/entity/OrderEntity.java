@@ -17,13 +17,13 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "user_id")
+    //    @Column(name = "user_id")
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
             foreignKey = @ForeignKey(name = "FK_ORDER_USER"))
     private UserEntity user;
 
-//    @Column(name = "film_id")
+    //    @Column(name = "film_id")
     @OneToMany
     @JoinColumn(name = "film_id", nullable = false,
             foreignKey = @ForeignKey(name = "FK_ORDER_FILM"))
@@ -37,5 +37,4 @@ public class OrderEntity {
 
     @Column(name = "purchase")
     private Boolean purchase;
-
 }
