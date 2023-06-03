@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.homework.hometask07.dao.FilmRepository;
+import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.dao.entity.FilmEntity;
+import ru.homework.hometask07.mapper.FilmMapper;
+import ru.homework.hometask07.service.FilmService;
 
 import java.util.List;
 
@@ -14,18 +16,23 @@ import java.util.List;
 @Tag(name = "Фильм", description = "Название фильма: ")
 @RequiredArgsConstructor
 public class FilmController {
-    private final FilmRepository filmRepository;
+    //    private final FilmRepository filmRepository;
+    private final FilmService filmService;
+    private final FilmMapper filmMapper;
 
     @Operation(description = "Получить список всех фильмов.")
     @GetMapping
-    public List<FilmEntity> getAllFilm() {
-        return filmRepository.findAll();
+    public List<FilmDto> getAllFilm() {
+        return filmService.getAllFilm().stream()
+                .map(filmMapper::entityToDto)
+                .toList();
     }
 
     @Operation(description = "Получить название фильма по ID.")
     @GetMapping("/{id}")
     public FilmEntity getFilmByID(@PathVariable Integer id) {
         return filmRepository.findById(id).orElse(null);
+        //TODO продолжить создавать сервисы и изменять в контроллерах
     }
 
     @Operation(description = "Разместить фильм в базу данных.")

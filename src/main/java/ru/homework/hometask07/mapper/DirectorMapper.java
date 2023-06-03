@@ -12,8 +12,9 @@ import ru.homework.hometask07.dao.entity.FilmEntity;
 public class DirectorMapper {
     private final FilmRepository filmRepository;
 
-    public static DirectorDto entityToDto(DirectorEntity entity) {
-        return new DirectorDto(entity.getId(),
+    public DirectorDto entityToDto(DirectorEntity entity) {
+        return new DirectorDto(
+                entity.getId(),
                 entity.getDirectorFIO(),
                 entity.getPosition(),
                 entity.getFilms().stream()
@@ -23,13 +24,13 @@ public class DirectorMapper {
     }
 
     public DirectorEntity dtoToEntity(DirectorDto dto) {
-        return DirectorEntity.builder()
-                .id(dto.id())
-                .directorFIO(dto.directorFIO())
-                .position(dto.position())
-                .films(dto.filmIDs().stream()
+        return new DirectorEntity(
+                dto.id(),
+                dto.directorFIO(),
+                dto.position(),
+                dto.filmIDs().stream()
                         .map(id -> filmRepository.findById(id).orElse(null))
-                        .toList())
-                .build();
+                        .toList()
+        );
     }
 }

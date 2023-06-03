@@ -1,13 +1,12 @@
 package ru.homework.hometask07.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.homework.hometask07.dao.DirectorRepository;
-import ru.homework.hometask07.dao.entity.DirectorEntity;
-import ru.homework.hometask07.dao.entity.FilmEntity;
+import ru.homework.hometask07.controller.dto.DirectorDto;
+import ru.homework.hometask07.mapper.DirectorMapper;
+import ru.homework.hometask07.service.DirectorService;
 
 import java.util.List;
 
@@ -16,38 +15,41 @@ import java.util.List;
 @Tag(name = "Продюссер", description = "Автор или авторы фильма.")
 @RequiredArgsConstructor
 public class DirectorController {
-    private final DirectorRepository directorRepository;
+    //    private final DirectorRepository directorRepository;
+    private final DirectorService directorService;
+    private final DirectorMapper directorMapper;
 
     @Operation(description = "Получить список всех продюссеров.")
     @GetMapping
-    public List<DirectorEntity> getAllDirectors(){
-        return directorRepository.findAll();
+    public List<DirectorDto> getAllDirectors() {
+        return directorService.getAllDirectors().stream()
+                .map(directorMapper::entityToDto)
+                .toList();
     }
 
     @Operation(description = "Полудчить имя продюссера по ID.")
     @GetMapping("/{id}")
-    public DirectorEntity getDirectorByID(@PathVariable Integer id){
-        return directorRepository.findById(id).orElse(null);
+    public DirectorDto getDirectorByID(@PathVariable Integer id) {
+        return directorMapper.entityToDto(directorService.getDirectorByID(id));
     }
 
     @Operation(description = "Добавить продюссера.")
     @PostMapping
-    public DirectorEntity createDirector(@RequestBody DirectorEntity body){
-        return directorRepository.save(body);
+    public DirectorDto createDirector(@RequestBody DirectorDto body) {
+        return directorMapper.entityToDto(directorService.createDirector(directorMapper.dtoToEntity(body)));
     }
 
     @Operation(description = "Обновить данные о продюссере.")
     @PutMapping("/{id}")
-    public DirectorEntity updateDirector(@PathVariable Integer id, @RequestBody DirectorEntity body){
-        body.setId(id);
-        return directorRepository.save(body);
+    public DirectorDto updateDirector(@PathVariable Integer id, @RequestBody DirectorDto body) {
+        return directorMapper.entityToDto(directorService.updateDirector(id, directorMapper.dtoToEntity(body)));
     }
 
 
     @Operation(description = "Удалить запись о продюссере.")
     @DeleteMapping("/{id}")
     public void deleteDirectorByID(@PathVariable Integer id){
-        directorRepository.deleteById(id);
+        directorService.deleteDirectorByID(id);
     }
 
 }

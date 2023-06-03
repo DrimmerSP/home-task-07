@@ -1,8 +1,7 @@
 package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -10,6 +9,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "users")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
     @Column(name = "id", nullable = false)
     @Id
