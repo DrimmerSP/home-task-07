@@ -17,7 +17,8 @@ public class DirectorService {
     }
 
     public DirectorEntity getDirectorByID(Integer id) {
-        return directorRepository.findById(id).orElseThrow(() -> new RuntimeException("Режиссёр ID: %s не найден.".formatted(id)));
+        return directorRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Режиссёр ID: %s не найден.".formatted(id)));
     }
 
     public DirectorEntity createDirector(DirectorEntity body) {

@@ -16,11 +16,11 @@ public class RoleMapper {
         );
     }
 
-    public RoleEntity dtoToDto(RoleEntity dto) {
-        return RoleEntity.builder()
-                .id(dto.getId())
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .build();
+    public RoleEntity dtoToEntity(RoleDto dto) {
+        return new RoleEntity(
+                dto.id(),
+                dto.title(),
+                dto.description()
+        );
     }
 }

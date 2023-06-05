@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.FilmDto;
-import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.service.FilmService;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @Tag(name = "Фильм", description = "Название фильма: ")
 @RequiredArgsConstructor
 public class FilmController {
-    //    private final FilmRepository filmRepository;
     private final FilmService filmService;
     private final FilmMapper filmMapper;
 
@@ -30,27 +28,28 @@ public class FilmController {
 
     @Operation(description = "Получить название фильма по ID.")
     @GetMapping("/{id}")
-    public FilmEntity getFilmByID(@PathVariable Integer id) {
-        return filmRepository.findById(id).orElse(null);
-        //TODO продолжить создавать сервисы и изменять в контроллерах
+    public FilmDto getFilmByID(@PathVariable Integer id) {
+        return filmMapper.entityToDto(filmService.getFilmByID(id));
+//                orElseThrow(() ->
+//                new RuntimeException("Фильм ID: %s не найден.".formatted(id)));
+//        //TODO продолжить создавать сервисы и изменять в контроллерах
     }
 
     @Operation(description = "Разместить фильм в базу данных.")
     @PostMapping
-    public FilmEntity filmPost(@RequestBody FilmEntity body) {
-        return filmRepository.save(body);
+    public FilmDto filmPost(@RequestBody FilmDto body) {
+        return filmMapper.entityToDto(filmService.filmPost(filmMapper.dtoToEntity(body)));
     }
 
     @Operation(description = "Обновить информацию о фильме.")
     @PutMapping("/{id}")
-    public FilmEntity updateFilm(@PathVariable Integer id, @RequestBody FilmEntity body) {
-        body.setId(id);
-        return filmRepository.save(body);
+    public FilmDto updateFilm(@PathVariable Integer id, @RequestBody FilmDto body) {
+        return filmMapper.entityToDto(filmService.updateFilm(id, filmMapper.dtoToEntity(body)));
     }
 
     @Operation(description = "Удалить запись о фильме.")
     @DeleteMapping("/{id}")
     public void deleteFilmByID(@PathVariable Integer id) {
-        filmRepository.deleteById(id);
+        filmService.deleteFilmByID(id);
     }
 }

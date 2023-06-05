@@ -4,9 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.homework.hometask07.dao.RoleRepository;
-import ru.homework.hometask07.dao.entity.DirectorEntity;
-import ru.homework.hometask07.dao.entity.RoleEntity;
+import ru.homework.hometask07.controller.dto.RoleDto;
+import ru.homework.hometask07.mapper.RoleMapper;
+import ru.homework.hometask07.service.RoleService;
 
 import java.util.List;
 
@@ -15,36 +15,38 @@ import java.util.List;
 @Tag(name = "Жанр", description = "Описание жанра фильма: ")
 @RequiredArgsConstructor
 public class RoleController {
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
     @Operation(description = "Получить список всех жанров.")
     @GetMapping
-    public List<RoleEntity> getAllRoles(){
-        return roleRepository.findAll();
+    public List<RoleDto> getAllRoles() {
+        return roleService.getAllRoles().stream()
+                .map(roleMapper::entityToDto)
+                .toList();
     }
 
     @Operation(description = "Получить жанр по ID.")
     @GetMapping("/{id}")
-    public RoleEntity getRolesByID(@PathVariable Integer id){
-        return roleRepository.findById(id).orElse(null);
+    public RoleDto getRolesByID(@PathVariable Integer id) {
+        return roleMapper.entityToDto(roleService.getRolesByID(id));
     }
 
     @Operation(description = "Добавить жанр.")
     @PostMapping
-    public RoleEntity createRole(@RequestBody RoleEntity body){
-        return roleRepository.save(body);
+    public RoleDto createRole(@RequestBody RoleDto body) {
+        return roleMapper.entityToDto(roleService.createRole(roleMapper.dtoToEntity(body)));
     }
 
     @Operation(description = "Обновить жанр.")
     @PutMapping("/{id}")
-    public RoleEntity updateRole(@PathVariable Integer id, @RequestBody RoleEntity body){
-        body.setId(id);
-        return roleRepository.save(body);
+    public RoleDto updateRole(@PathVariable Integer id, @RequestBody RoleDto body) {
+        return roleMapper.entityToDto(roleService.updateRole(id, roleMapper.dtoToEntity(body)));
     }
 
     @Operation(description = "Удалить жанр.")
     @DeleteMapping("/{id}")
     public void deleteRoleByID(@PathVariable Integer id){
-        roleRepository.deleteById(id);
+        roleService.deleteRoleByID(id);
     }
 }

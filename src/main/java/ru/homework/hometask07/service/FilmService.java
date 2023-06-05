@@ -2,8 +2,6 @@ package ru.homework.hometask07.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.homework.hometask07.dao.FilmRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 
@@ -18,20 +16,21 @@ public class FilmService {
         return filmRepository.findAll();
     }
 
-    public FilmEntity getFilmByID(@PathVariable Integer id) {
-        return filmRepository.findById(id).orElseThrow(() -> new RuntimeException("Фильм ID: %s не найден.".formatted(id)));
+    public FilmEntity getFilmByID(Integer id) {
+        return filmRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Фильм ID: %s не найден.".formatted(id)));
     }
 
-    public FilmEntity filmPost(@RequestBody FilmEntity body) {
+    public FilmEntity filmPost(FilmEntity body) {
         return filmRepository.save(body);
     }
 
-    public FilmEntity updateFilm(@PathVariable Integer id, @RequestBody FilmEntity body) {
+    public FilmEntity updateFilm(Integer id, FilmEntity body) {
         body.setId(id);
         return filmRepository.save(body);
     }
 
-    public void deleteFilmByID(@PathVariable Integer id) {
+    public void deleteFilmByID(Integer id) {
         filmRepository.deleteById(id);
     }
 }
