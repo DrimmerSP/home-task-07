@@ -4,8 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.controller.dto.UserDto;
+import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.mapper.UserMapper;
+import ru.homework.hometask07.service.OrderService;
 import ru.homework.hometask07.service.UserService;
 
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
+    private final OrderService orderService;
+    private final FilmMapper filmMapper;
 
     @Operation(description = "Получить список всех пользователей.")
     @GetMapping
@@ -46,7 +51,14 @@ public class UserController {
 
     @Operation(description = "Удалить запись о пользователе.")
     @DeleteMapping("/{id}")
-    public void deleteUserByID(@PathVariable Integer id){
+    public void deleteUserByID(@PathVariable Integer id) {
         userService.deleteUserByID(id);
+    }
+
+    @GetMapping("/{id}/inuse")
+    public List<FilmDto> getFilmsInUse(@PathVariable(value = "id") Integer userId) {
+        return orderService.getFilmsInUse(userId).stream()
+                .map(filmMapper::entityToDto)
+                .toList();
     }
 }

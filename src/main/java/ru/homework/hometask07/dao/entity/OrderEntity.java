@@ -27,8 +27,13 @@ public class OrderEntity {
 
     //    @Column(name = "film_id")
     @OneToMany
-    @JoinColumn(name = "film_id", nullable = false,
-            foreignKey = @ForeignKey(name = "FK_ORDER_FILM"))
+//    @JoinColumn(name = "id", nullable = false,   //film-id
+//            foreignKey = @ForeignKey(name = "FK_ORDER_FILM"))
+    @JoinTable(
+            name = "order_films",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id")
+    )
     private List<FilmEntity> film;
 
     @Column(name = "rent_date", nullable = false)

@@ -33,4 +33,6 @@ public class DirectorService {
     public void deleteDirectorByID(Integer id) {
         directorRepository.deleteById(id);
     }
+
+
 }

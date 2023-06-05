@@ -35,7 +35,7 @@ public class OrderController {
 
     @Operation(description = "Создать заказ.")
     @PostMapping
-    public OrderDto createOrder(@RequestBody OrderDto body) {
+    public OrderDto createOrder(@RequestBody OrderDto body) {  // 2. Взять фильм в аренду/купить
         return orderMapper.entityToDto(orderService.createOrder(orderMapper.dtoToEntity(body)));
     }
 
@@ -50,4 +50,6 @@ public class OrderController {
     public void deleteOrderByID(@PathVariable Integer id){
         orderService.deleteOrderByID(id);
     }
+
+
 }

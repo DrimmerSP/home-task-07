@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.service.FilmService;
+import ru.homework.hometask07.service.UpdateFilmDirectorService;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class FilmController {
     private final FilmService filmService;
     private final FilmMapper filmMapper;
+    private final UpdateFilmDirectorService updateFilmDirectorService;
 
     @Operation(description = "Получить список всех фильмов.")
     @GetMapping
@@ -51,5 +53,10 @@ public class FilmController {
     @DeleteMapping("/{id}")
     public void deleteFilmByID(@PathVariable Integer id) {
         filmService.deleteFilmByID(id);
+    }
+
+    @PutMapping("/{id}/adddirector")
+    public void addDirectorToFilm(@PathVariable(value = "id") Integer filmId, @RequestParam Integer directorId) {
+        updateFilmDirectorService.updateFilmDirector(filmId, directorId);
     }
 }

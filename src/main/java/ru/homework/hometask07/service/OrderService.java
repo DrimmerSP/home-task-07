@@ -3,6 +3,7 @@ package ru.homework.hometask07.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.dao.OrderRepository;
+import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.dao.entity.OrderEntity;
 
 import java.util.List;
@@ -31,5 +32,9 @@ public class OrderService {
 
     public void deleteOrderByID(Integer id) {
         orderRepository.deleteById(id);
+    }
+
+    public List<FilmEntity> getFilmsInUse(Integer userId) {
+        return orderRepository.getFilmsInUseByUserId(userId);
     }
 }

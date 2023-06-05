@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.DirectorDto;
 import ru.homework.hometask07.mapper.DirectorMapper;
 import ru.homework.hometask07.service.DirectorService;
+import ru.homework.hometask07.service.UpdateFilmDirectorService;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class DirectorController {
     //    private final DirectorRepository directorRepository;
     private final DirectorService directorService;
     private final DirectorMapper directorMapper;
+    private final UpdateFilmDirectorService updateFilmDirectorService;
 
     @Operation(description = "Получить список всех продюссеров.")
     @GetMapping
@@ -45,11 +47,14 @@ public class DirectorController {
         return directorMapper.entityToDto(directorService.updateDirector(id, directorMapper.dtoToEntity(body)));
     }
 
-
     @Operation(description = "Удалить запись о продюссере.")
     @DeleteMapping("/{id}")
-    public void deleteDirectorByID(@PathVariable Integer id){
+    public void deleteDirectorByID(@PathVariable Integer id) {
         directorService.deleteDirectorByID(id);
     }
 
+    @PutMapping("/{id}/addfilm")
+    public void addFilmToDirector(@PathVariable(value = "id") Integer directorId, @RequestParam Integer filmId) {
+        updateFilmDirectorService.updateFilmDirector(directorId, filmId);
+    }
 }
