@@ -3,7 +3,7 @@ package ru.homework.hometask07.dao.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -36,11 +36,11 @@ public class OrderEntity {
     )
     private List<FilmEntity> film;
 
-    @Column(name = "rent_date", nullable = false)
-    private LocalDateTime rentDate;
+    @Column(name = "rent_from", nullable = false)
+    private LocalDate rentFrom;
 
-    @Column(name = "rent_period", nullable = false)
-    private LocalDateTime rentPeriod;
+    @Column(name = "rent_to", nullable = false)
+    private LocalDate rentTo;
 
     @Column(name = "purchase")
     private Boolean purchase;

@@ -8,6 +8,8 @@ import ru.homework.hometask07.dao.UserRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.dao.entity.OrderEntity;
 
+import java.time.Duration;
+
 @Component
 @RequiredArgsConstructor
 public class OrderMapper {
@@ -19,8 +21,8 @@ public class OrderMapper {
                 entity.getId(),
                 entity.getUser().getId(),
                 entity.getFilm().stream().map(FilmEntity::getId).toList(),
-                entity.getRentDate(),
-                entity.getRentPeriod(),
+                entity.getRentFrom(),
+                Duration.between(entity.getRentFrom(), entity.getRentTo()),
                 entity.getPurchase()
         );
     }
@@ -32,8 +34,8 @@ public class OrderMapper {
                 .film(dto.filmID().stream()
                         .map(id -> filmRepository.findById(id).orElse(null))
                         .toList())
-                .rentDate(dto.rentDate())
-                .rentPeriod(dto.rentPeriod())
+                .rentFrom(dto.rentFrom())
+                .rentTo(dto.rentFrom().plus(dto.rentPeriod()))
                 .purchase(dto.purchase())
                 .build();
     }

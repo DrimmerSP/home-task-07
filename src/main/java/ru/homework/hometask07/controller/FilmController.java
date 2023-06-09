@@ -32,9 +32,6 @@ public class FilmController {
     @GetMapping("/{id}")
     public FilmDto getFilmByID(@PathVariable Integer id) {
         return filmMapper.entityToDto(filmService.getFilmByID(id));
-//                orElseThrow(() ->
-//                new RuntimeException("Фильм ID: %s не найден.".formatted(id)));
-//        //TODO продолжить создавать сервисы и изменять в контроллерах
     }
 
     @Operation(description = "Разместить фильм в базу данных.")
