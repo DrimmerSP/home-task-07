@@ -13,7 +13,7 @@ import ru.homework.hometask07.service.FilmService;
 
 @Controller
 @Hidden
-@RequestMapping("/films")
+@RequestMapping("/films/view")
 @Slf4j
 @RequiredArgsConstructor
 public class MvcFilmController {

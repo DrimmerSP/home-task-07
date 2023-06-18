@@ -1,6 +1,8 @@
 package ru.homework.hometask07.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.dao.DirectorRepository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
@@ -14,6 +16,10 @@ public class DirectorService {
 
     public List<DirectorEntity> getAllDirectors() {
         return directorRepository.findAll();
+    }
+
+    public Page<DirectorEntity> getAllDirectors(PageRequest pageRequest) {  //добавил для вывода страницы
+        return directorRepository.findAll(pageRequest);
     }
 
     public DirectorEntity getDirectorByID(Integer id) {

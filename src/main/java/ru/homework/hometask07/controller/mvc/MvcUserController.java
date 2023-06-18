@@ -8,7 +8,7 @@ import ru.homework.hometask07.service.UserService;
 
 @Controller
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/user/registration")
 @RequiredArgsConstructor
 public class MvcUserController {
     private final UserService userService;
