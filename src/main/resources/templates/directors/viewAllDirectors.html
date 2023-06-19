@@ -8,10 +8,10 @@
 <h1>Directors List</h1>
 <table>
     <tr>
-        <th scope="col">ID</th>
-        <th scope="col">DirectorFIO</th>
-        <th scope="col">Position</th>
-        <th scope="col">FilmIDs</th>
+        <th scope="col">[id]</th>
+        <th scope="col">[DirectorFIO]</th>
+        <th scope="col">[Position]</th>
+        <th scope="col">[FilmIDs]</th>
     </tr>
     <tr th:each="director : ${directors}">
         <td th:text="${director.id}"></td>

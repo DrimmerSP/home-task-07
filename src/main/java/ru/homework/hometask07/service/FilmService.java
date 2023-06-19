@@ -1,6 +1,8 @@
 package ru.homework.hometask07.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.dao.FilmRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
@@ -15,6 +17,11 @@ public class FilmService {
     public List<FilmEntity> getAllFilm() {
         return filmRepository.findAll();
     }
+
+    public Page<FilmEntity> getAllFilm(PageRequest pageRequest) {  //добавил для вывода страницы
+        return filmRepository.findAll(pageRequest);
+    }
+
 
     public FilmEntity getFilmByID(Integer id) {
         return filmRepository.findById(id).orElseThrow(() ->

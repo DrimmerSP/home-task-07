@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+</head>
+<body>
+<h1>Films List</h1>
+<table>
+    <tr>
+        <th scope="col">[ID]</th>
+        <th scope="col">[Title]</th>
+        <th scope="col">[PremierDate]</th>
+        <th scope="col">[Country]</th>
+        <th scope="col">[Genre]</th>
+        <th scope="col">[DirectorIDs]</th>
+    </tr>
+    <tr th:each="films : ${films}">
+        <td th:text="${films.id}"></td>
+        <td th:text="${films.title}"></td>
+        <td th:text="${films.premierDate}"></td>
+        <td th:text="${films.country}"></td>
+        <td th:text="${films.genre}"></td>
+        <td th:text="${films.directorIDs}"></td>
+    </tr>
+</table>
+</body>
+</html>
