@@ -7,9 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.service.FilmService;
@@ -37,6 +35,7 @@ public class MvcFilmController {
 
         return "films/viewAllFilms";
 
+
 //        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
 //        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Page<AuthorDTO> result;
@@ -48,4 +47,22 @@ public class MvcFilmController {
 //        }
 //        model.addAttribute("authors", result);
     }
+
+    // Блок добавления:
+    @GetMapping("/add")
+    public String create() {
+        log.info("Получен запрос на добавление нового фильма");
+        return "film/addFilm";
+    }
+
+    @PostMapping("/add")
+    public String create(@ModelAttribute("filmForm") FilmDto newFilm) {
+        log.info("Получен запрос на добавление нового фильма {}", newFilm.toString());
+
+        filmService.filmPost(filmMapper.dtoToEntity(newFilm));
+
+        return "redirect:/film";
+    }
+    //TOTO продолжить разбрираться с ошибкой доавления
+    // Блок добавления ^^^^^^^^
 }

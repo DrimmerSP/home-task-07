@@ -22,7 +22,6 @@ public class FilmService {
         return filmRepository.findAll(pageRequest);
     }
 
-
     public FilmEntity getFilmByID(Integer id) {
         return filmRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Фильм ID: %s не найден.".formatted(id)));
