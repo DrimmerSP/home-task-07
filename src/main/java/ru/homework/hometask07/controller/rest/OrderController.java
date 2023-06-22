@@ -1,4 +1,4 @@
-package ru.homework.hometask07.controller;
+package ru.homework.hometask07.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

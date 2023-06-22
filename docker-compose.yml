@@ -9,4 +9,5 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "12345"
     ports:
-      - "5432:5432"
+      - "5435:5432"   # // 5435:5432 по умолчанию (в апликейшин пропертис тоже меняно)
+
