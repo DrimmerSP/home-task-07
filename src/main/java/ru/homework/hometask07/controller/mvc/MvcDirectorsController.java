@@ -7,9 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.DirectorDto;
 import ru.homework.hometask07.mapper.DirectorMapper;
 import ru.homework.hometask07.service.DirectorService;
@@ -37,6 +35,24 @@ public class MvcDirectorsController {
         model.addAttribute("directors", result);
 
         return "directors/viewAllDirectors";
+
+        // Блок добавления:
+        @GetMapping("/add")
+        public String createDirector () {
+            log.info("Получен запрос на добавление нового фильма");
+            return "films/filmPost";
+        }
+
+        @PostMapping("/add")
+        public String createDirector (@ModelAttribute("directorForm") DrectorDto newDirector){
+            log.info("Получен запрос на добавление нового Продюссера {}", newDirector.toString());
+
+            directorService.createDirector(directorMapper.dtoToEntity(newDirector));
+
+            return "redirect:/films";
+        }
+        //TOTO продолжить разбрираться с ошибкой доавления
+        // Блок добавления ^^^^^^^^
 
         //        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
 //        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
