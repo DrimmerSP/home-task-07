@@ -8,6 +8,8 @@ import ru.homework.hometask07.dao.DirectorRepository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 
+import java.util.Collections;
+
 @Component
 @RequiredArgsConstructor
 public class FilmMapper {
@@ -19,7 +21,7 @@ public class FilmMapper {
                 entity.getPremierDate(),
                 entity.getCountry(),
                 entity.getGenre(),
-                entity.getDirectors().stream()
+                entity.getDirectors() == null ? Collections.emptyList() : entity.getDirectors().stream()
                         .map(DirectorEntity::getId)
                         .toList()
         );
@@ -32,7 +34,7 @@ public class FilmMapper {
                 .premierDate(dto.premierDate())
                 .country(dto.country())
                 .genre(dto.genre())
-                .directors(dto.directorIDs().stream()
+                .directors(dto.directorIDs() == null ? Collections.emptyList() : dto.directorIDs().stream()
                         .map(id -> directorRepository.findById(id).orElse(null))
                         .toList())
                 .build();

@@ -51,17 +51,17 @@ public class MvcFilmController {
     // Блок добавления:
     @GetMapping("/add")
     public String filmPost() {
-        log.info("Получен запрос на добавление нового фильма");
+        log.info("GET: Получен запрос на добавление нового фильма");
         return "films/filmPost";
     }
 
     @PostMapping("/add")
     public String filmPost(@ModelAttribute("filmForm") FilmDto newFilm) {
-        log.info("Получен запрос на добавление нового фильма {}", newFilm.toString());
+        log.info("POST: Получен запрос на добавление нового фильма {}", newFilm.toString());
 
         filmService.filmPost(filmMapper.dtoToEntity(newFilm));
 
-        return "redirect:/films";
+        return "redirect:/films/viewAllFilms";
     }
     //TOTO продолжить разбрираться с ошибкой доавления
     // Блок добавления ^^^^^^^^

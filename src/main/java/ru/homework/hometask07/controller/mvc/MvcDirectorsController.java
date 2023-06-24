@@ -27,34 +27,33 @@ public class MvcDirectorsController {
     @GetMapping("")
     public String getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                          @RequestParam(value = "size", defaultValue = "5") int pageSize,
-                         Model model
-    ) {
-
+                         Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "directorFIO"));
         List<DirectorDto> result = directorService.getAllDirectors(pageRequest).stream().map(directorMapper::entityToDto).toList();
         model.addAttribute("directors", result);
 
         return "directors/viewAllDirectors";
+    }
 
-        // Блок добавления:
-        @GetMapping("/add")
-        public String createDirector () {
-            log.info("Получен запрос на добавление нового фильма");
-            return "films/filmPost";
-        }
+    // Блок добавления:
+    @GetMapping("/add")
+    public String createDirector() {
+        log.info("Получен запрос на добавление нового фильма");
+        return "directors/createDirector";
+    }
 
-        @PostMapping("/add")
-        public String createDirector (@ModelAttribute("directorForm") DrectorDto newDirector){
-            log.info("Получен запрос на добавление нового Продюссера {}", newDirector.toString());
+    @PostMapping("/add")
+    public String createDirector(@ModelAttribute("directorForm") DirectorDto newDirector) {
+        log.info("Получен запрос на добавление нового Продюссера {}", newDirector.toString());
 
-            directorService.createDirector(directorMapper.dtoToEntity(newDirector));
+        directorService.createDirector(directorMapper.dtoToEntity(newDirector));
 
-            return "redirect:/films";
-        }
-        //TOTO продолжить разбрираться с ошибкой доавления
-        // Блок добавления ^^^^^^^^
+        return "redirect:/directors";
+    }
+    //TOTO продолжить разбрираться с ошибкой доавления
+    // Блок добавления ^^^^^^^^
 
-        //        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
+    //        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
 //        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Page<AuthorDTO> result;
 //        if (ADMIN.equalsIgnoreCase(userName)) {
@@ -63,5 +62,5 @@ public class MvcDirectorsController {
 //            result = authorService.listAllNotDeleted(pageRequest);
 //        }
 //        model.addAttribute("authors", result);*/
-    }
+
 }
