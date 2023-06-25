@@ -61,8 +61,7 @@ public class MvcFilmController {
 
         filmService.filmPost(filmMapper.dtoToEntity(newFilm));
 
-        return "redirect:/films/viewAllFilms";
+        return "redirect:/";
     }
-    //TOTO продолжить разбрираться с ошибкой доавления
     // Блок добавления ^^^^^^^^
 }

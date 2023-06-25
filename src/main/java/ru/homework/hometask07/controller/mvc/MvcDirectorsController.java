@@ -35,24 +35,6 @@ public class MvcDirectorsController {
         return "directors/viewAllDirectors";
     }
 
-    // Блок добавления:
-    @GetMapping("/add")
-    public String createDirector() {
-        log.info("Получен запрос на добавление нового фильма");
-        return "directors/createDirector";
-    }
-
-    @PostMapping("/add")
-    public String createDirector(@ModelAttribute("directorForm") DirectorDto newDirector) {
-        log.info("Получен запрос на добавление нового Продюссера {}", newDirector.toString());
-
-        directorService.createDirector(directorMapper.dtoToEntity(newDirector));
-
-        return "redirect:/directors";
-    }
-    //TOTO продолжить разбрираться с ошибкой доавления
-    // Блок добавления ^^^^^^^^
-
     //        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
 //        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 //        Page<AuthorDTO> result;
@@ -63,4 +45,21 @@ public class MvcDirectorsController {
 //        }
 //        model.addAttribute("authors", result);*/
 
+    // Блок добавления:
+    @GetMapping("/add")
+    public String createDirector() {
+        log.info("GET: Получен запрос на добавление нового фильма");
+        return "directors/createDirector";
+    }
+
+    @PostMapping("/add")
+    public String createDirector(@ModelAttribute("directorForm") DirectorDto newDirector) {
+        log.info("POST: Получен запрос на добавление нового Продюссера {}", newDirector.toString());
+
+        directorService.createDirector(directorMapper.dtoToEntity(newDirector));
+
+        return "redirect:/";
+    }
+    //TOTO продолжить разбрираться с ошибкой доавления
+    // Блок добавления ^^^^^^^^
 }
