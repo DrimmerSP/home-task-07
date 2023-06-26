@@ -30,18 +30,18 @@ public class UserMapper {
 
     public UserEntity dtoToEntity(UserDto dto) {
         return UserEntity.builder()
-                .id(dto.id())
-                .login(dto.login())
-                .password(dto.password())
-                .firstName(dto.firstName())
-                .lastName(dto.lastName())
-                .middleName(dto.middleName())
-                .birthDate(dto.birthDate())
-                .phone(dto.phone())
-                .address(dto.address())
-                .email(dto.email())
-                .createdWhen(dto.createdWhen())
-                .role(roleRepository.findById(dto.roleID()).orElse(null))
+                .id(dto.getId())
+                .login(dto.getLogin())
+                .password(dto.getPassword())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .middleName(dto.getMiddleName())
+                .birthDate(dto.getBirthDate())
+                .phone(dto.getPhone())
+                .address(dto.getAddress())
+                .email(dto.getEmail())
+                .createdWhen(dto.getCreatedWhen())
+                .role(roleRepository.findById(dto.getRoleID()).orElse(null))
                 .build();
     }
 }
