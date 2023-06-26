@@ -7,6 +7,8 @@ import ru.homework.hometask07.dao.FilmRepository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 
+import java.util.Collections;
+
 @Component
 @RequiredArgsConstructor
 public class DirectorMapper {
@@ -24,13 +26,13 @@ public class DirectorMapper {
     }
 
     public DirectorEntity dtoToEntity(DirectorDto dto) {
-        return new DirectorEntity(
-                dto.id(),
-                dto.directorFIO(),
-                dto.position(),
-                dto.filmIDs().stream()
+        return DirectorEntity.builder()
+                .id(dto.id())
+                .directorFIO(dto.directorFIO())
+                .position(dto.position())
+                .films(dto.filmIDs() == null ? Collections.emptyList() : dto.filmIDs().stream()
                         .map(id -> filmRepository.findById(id).orElse(null))
-                        .toList()
-        );
+                        .toList())
+                .build();
     }
 }

@@ -16,7 +16,8 @@ public class FilmMapper {
     private final DirectorRepository directorRepository;
 
     public FilmDto entityToDto(FilmEntity entity) {
-        return new FilmDto(entity.getId(),
+        return new FilmDto(
+                entity.getId(),
                 entity.getTitle(),
                 entity.getPremierDate(),
                 entity.getCountry(),

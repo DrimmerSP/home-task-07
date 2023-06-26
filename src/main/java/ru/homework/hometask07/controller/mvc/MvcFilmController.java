@@ -63,6 +63,5 @@ public class MvcFilmController {
 
         return "redirect:/";
     }
-    //TOTO продолжить разбрираться с ошибкой доавления
     // Блок добавления ^^^^^^^^
 }
