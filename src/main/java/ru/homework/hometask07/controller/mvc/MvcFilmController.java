@@ -21,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MvcFilmController {
     private final FilmService filmService;
-    //    private final DirectorService directorService;
     private final FilmMapper filmMapper;
 
     @GetMapping("")
@@ -35,17 +34,17 @@ public class MvcFilmController {
 
         return "films/viewAllFilms";
 
-
-//        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
-//        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-//        Page<AuthorDTO> result;
-//        if (ADMIN.equalsIgnoreCase(userName)) {
-//            result = authorService.listAll(pageRequest);
-//        }
-//        else {
-//            result = authorService.listAllNotDeleted(pageRequest);
-//        }
-//        model.addAttribute("authors", result);
+/*
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Page<AuthorDTO> result;
+        if (ADMIN.equalsIgnoreCase(userName)) {
+            result = authorService.listAll(pageRequest);
+        }
+        else {
+            result = authorService.listAllNotDeleted(pageRequest);
+        }
+        model.addAttribute("authors", result);*/
     }
 
     // Блок добавления:
@@ -61,7 +60,7 @@ public class MvcFilmController {
 
         filmService.filmPost(filmMapper.dtoToEntity(newFilm));
 
-        return "redirect:/";
+        return "redirect:/films/view";
     }
     // Блок добавления ^^^^^^^^
 }
