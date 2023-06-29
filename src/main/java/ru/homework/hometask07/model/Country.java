@@ -204,7 +204,7 @@ public enum Country {
     ZAMBIA("Zambia"),
     ZIMBABWE("Zimbabwe");
 
-    private String country;
+    private final String country;
 
     Country(String country) {
         this.country = country;

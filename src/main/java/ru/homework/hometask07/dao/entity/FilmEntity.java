@@ -2,6 +2,8 @@ package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.homework.hometask07.model.Country;
+import ru.homework.hometask07.model.Genre;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,15 +23,19 @@ public class FilmEntity {
 
     @Column(name = "title", nullable = false)
     private String title;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "premier_date")
     private LocalDate premierDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "country")
-    private String country;
+    private Country country;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "genre")
-    private String genre;
+    private Genre genre;
 
     @ManyToMany
     @JoinTable(

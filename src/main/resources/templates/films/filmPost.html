@@ -6,124 +6,45 @@
     <meta charset="UTF-8">
     <title>Добавить фильм</title>
 </head>
-
 <body>
-<!--<h1>Films post</h1>-->
 <div layout:fragment="content">
     <h3 class="mt-3 mb-3">Добавить фильм</h3>
-    <form enctype="multipart/form-data" class="needs-validation" novalidate style="max-width: 50vw" method="POST"
-          th:action="@{/films/view/add}" th:object="${filmForm}">
-        <div class="mt-3 row g-2">
-            <div class="col-md">
-                <div class="form-floating">
-                    <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
-                    <input name="title" type="text" class="form-control" id="title" placeholder="Название фльма"
-                           required>
-                    <label for="title">Название</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                </div>
-            </div>
-
-            <div class="col-md">
-                <div class="form-floating">
-                    <select class="form-select" name="genre" id="genre" required>
-                        <option selected value="default">Выберете жанр из списка</option>
-                        <option th:each="genre : ${T(ru.homework.hometask07.model.Genre).values()}"
-                                th:value="${genre}" th:text="${genre.getGenreTextDisplay()}"></option>
-                    </select>
-                    <label for="genre">Жанр</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                </div>
-            </div>
-
-            <div class="col-md">
-                <div class="form-floating">
-                    <label for="country"></label><select class="form-select" name="country" id="country" required>
-                    <!-- // добавлено  <label for="country"></label> -->
-                    <option selected value="default">Выбор страны</option>
-                    <option th:each="country : ${T(ru.homework.hometask07.model.Country).values()}"
-                            th:value="${country}" th:text="${country.getCountryTextDisplay()}"></option>
-                </select>
-                    <label for="genre">Страна</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                </div>
-            </div>
-
-            <div class="col-md">
-                <div class="form-floating">
-                    <input name="premierDate" type="date" class="form-control" id="date" placeholder="Дата премьеры"
-                           required="" wfd-id="id5">
-                    <label for="date">Дата премьеры</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                </div>
-            </div>
-
-            <!--        TODO: тут будет загрузка файла-->
-            <!-- <div class="mt-3 form-floating">
-                 <input name="onlineCopy" type="file" class="form-control form-control-sm" id="onlineCopy"
-                        placeholder="Онлайн копия файла" style="padding-top: 2rem;">
-                 <label for="onlineCopy">Онлайн копия</label>
-             </div>
-
-             <div class="mt-3 row g-2">
-                 <div class="col-md">
-                     <div class="form-floating">
-                         <input name="amount" type="number" class="form-control" id="amount"
-                                placeholder="Количество книг" value="1" required>
-                         <label for="amount">Количество фильмов</label>
-                         <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                     </div>
-                 </div>
-                 <div class="col-md">
-                     <div class="form-floating">
-                         <input name="pageCount" type="number" class="form-control" id="pageCount"
-                                placeholder="Количество страниц" value="1">
-                         <label for="pageCount">Количество серий</label>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="mt-3 row g-2">
-                 <div class="col-md">
-                     <div class="form-floating">
-                         <input name="publish" type="text" class="form-control" id="publish"
-                                placeholder="Издательство" required>
-                         <label for="publish">Студия</label>
-                         <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                     </div>
-                 </div>
-                 <div class="col-md">
-                     <div class="form-floating">
-                         <input name="publishDate" type="date" class="form-control" id="date"
-                                placeholder="Дата публикации" required>
-                         <label for="date">Дата издания</label>
-                         <div class="invalid-feedback">Обязательное поле для заполнения</div>
-                     </div>
-                 </div>
-             </div>
-
-             <div class="mt-3 row g-2">
-                 <div class="col-md">
-                     <div class="form-floating">
-                         <input name="storagePlace" type="text" class="form-control" id="storage"
-                                placeholder="Место хранения">
-                         <label for="storage">Место хранения</label>
-                     </div>
-                 </div>
-                 <div class="col-md">
-                     <div class="form-floating">
-                             <textarea name="description" type="text" class="form-control" id="description"
-                                       placeholder="Описание"></textarea>
-                         <label for="description">Описание</label>
-                     </div>
-                 </div>
-             </div>-->
-
-            <div class="mt-3 row g-2">
-                <button type="submit" class="btn btn-primary" onclick="validateForm()">Добавить</button>
-                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
-            </div>
+    <form style="max-width: 50vw" method="POST" th:action="@{/films/view/add}" th:object="${filmForm}">
+        <div class="mb-3">
+            <label for="title" class="form-label">Название</label>
+            <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
+            <input name="title" type="text" class="form-control" id="title">
         </div>
+        <!--<div class="mb-3">
+            <label for="country" class="form-label">Страна</label>
+            <input name="country" type="text" class="form-control" id="country">
+        </div>-->
+        <div class="mb-3">
+            <label for="country" class="form-label">Страна</label>
+            <select class="form-select" name="country" id="country">
+                <option selected>Выберете страну из списка:</option>
+                <option th:each="country : ${T(ru.homework.hometask07.model.Country).values()}"
+                        th:value="${country}" th:text="${country.getCountryTextDisplay()}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="premierDate" class="form-label">Дата премьеры</label>
+            <input name="premierDate" type="text" class="form-control" id="premierDate">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Описание</label>
+            <input name="description" type="text" class="form-control" id="description">
+        </div>
+        <div class="mb-3">
+            <label for="genre" class="form-label">Жанр</label>
+            <select class="form-select" name="genre" id="genre">
+                <option selected>Выберете жанр из списка:</option>
+                <option th:each="genre : ${T(ru.homework.hometask07.model.Genre).values()}"
+                        th:value="${genre}" th:text="${genre.getGenreTextDisplay()}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
     </form>
 </div>
 </body>

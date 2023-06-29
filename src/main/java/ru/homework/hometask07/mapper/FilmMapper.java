@@ -22,6 +22,7 @@ public class FilmMapper {
                 entity.getPremierDate(),
                 entity.getCountry(),
                 entity.getGenre(),
+                entity.getDescription(),
                 entity.getDirectors() == null ? Collections.emptyList() : entity.getDirectors().stream()
                         .map(DirectorEntity::getId)
                         .toList()
@@ -32,6 +33,7 @@ public class FilmMapper {
         return FilmEntity.builder()
                 .id(dto.id())
                 .title(dto.title())
+                .description(dto.description())
                 .premierDate(dto.premierDate())
                 .country(dto.country())
                 .genre(dto.genre())
