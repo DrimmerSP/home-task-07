@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
+      layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Продюссеры</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <h1>Список продюссеров</h1>
+
+    <div class="row">
+        <div class="col">
+            <a href="view/add"
+               sec:authorize="isAuthenticated() && (hasRole('ADMIN'))"
+               class="btn btn-secondary"
+               role="button"
+               style="float: right"
+               aria-disabled="true">Добавить продюссера</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <!--    <th scope="col">[id]</th>-->
+            <th scope="col">[DirectorFIO]</th>
+            <th scope="col">[Position]</th>
+            <th scope="col">[FilmIDs]</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="director : ${directors}">
+            <!--    <td th:text="${director.id}"></td>-->
+            <td th:text="${director.directorFIO}"></td>
+            <td th:text="${director.position}"></td>
+            <td th:text="${director.filmIDs}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
