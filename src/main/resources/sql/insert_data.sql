@@ -27,8 +27,8 @@ VALUES ('Savanna, Sunrise 29, r. 20', '1998-06-06', '2022-09-10', 'savann@mailiz
         'ruslan',
         '+79771234569',
         2),
-       ('Mnogorechensk, Pobedy 56, r.5', '2000-06-10', '2023-06-10', 'reka@mailiz.ru', 'Vasya', 'Skobar', 'Admin',
-        'Petrovich', 'admin', '+79991234567', 1);
+       ('Mnogorechensk, Pobedy 56, r.5', '2000-06-10', '2023-06-10', 'reka@mailiz.ru', 'Vasya', 'Skobar', 'vasya',
+        'Petrovich', '123', '+79991234567', 1);
 
 INSERT INTO public.orders (purchase, rent_from, rent_to, user_id)
 VALUES (TRUE, '2023-06-10', '2023-06-20', 2),
