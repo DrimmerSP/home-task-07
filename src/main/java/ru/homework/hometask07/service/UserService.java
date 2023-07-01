@@ -1,6 +1,7 @@
 package ru.homework.hometask07.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.dao.UserRepository;
@@ -46,5 +47,9 @@ public class UserService {
 
     public UserEntity getUserByEmail(final String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    public boolean checkPassword(String password, UserDetails foundUser) {
+        return bCryptPasswordEncoder.matches(password, foundUser.getPassword());
     }
 }

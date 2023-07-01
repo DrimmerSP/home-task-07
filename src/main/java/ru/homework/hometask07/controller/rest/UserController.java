@@ -1,8 +1,10 @@
 package ru.homework.hometask07.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.controller.dto.UserDto;
@@ -17,11 +19,16 @@ import java.util.List;
 @RequestMapping("/users")
 @Tag(name = "Пользователи", description = "Пользователи системы: ")
 @RequiredArgsConstructor
+@Slf4j
+@SecurityRequirement(name = "Bearer Authentication")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final OrderService orderService;
     private final FilmMapper filmMapper;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final JWTTokenUtil jwtTokenUtil;
 
     @Operation(description = "Получить список всех пользователей.")
     @GetMapping
