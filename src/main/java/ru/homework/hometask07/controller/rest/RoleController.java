@@ -29,7 +29,7 @@ public class RoleController {
     @Operation(description = "Получить жанр по ID.")
     @GetMapping("/{id}")
     public RoleDto getRolesByID(@PathVariable Integer id) {
-        return roleMapper.entityToDto(roleService.getRolesByID(id));
+        return roleMapper.entityToDto(roleService.getRoleByID(id));
     }
 
     @Operation(description = "Добавить жанр.")

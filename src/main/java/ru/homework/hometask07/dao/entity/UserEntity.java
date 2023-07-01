@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -46,9 +47,8 @@ public class UserEntity {
     private String email;
 
     @Column(name = "created_when", nullable = false)
-    private LocalDate createdWhen;
+    private LocalDateTime createdWhen;
 
-//    @Column(name = "role_id", nullable = false)
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false,
             foreignKey = @ForeignKey(name = "FK_USERS_ROLES"))
