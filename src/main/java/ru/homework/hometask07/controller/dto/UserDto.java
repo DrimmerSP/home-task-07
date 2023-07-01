@@ -1,6 +1,7 @@
 package ru.homework.hometask07.controller.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record UserDto(
         Integer id,
@@ -13,7 +14,7 @@ public record UserDto(
         String phone,
         String address,
         String email,
-        LocalDate createdWhen,
+        LocalDateTime createdWhen,
         Integer roleID
 ) {
 }
