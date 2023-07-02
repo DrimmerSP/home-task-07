@@ -13,7 +13,7 @@ import ru.homework.hometask07.controller.dto.UserDto;
 import ru.homework.hometask07.mapper.UserMapper;
 import ru.homework.hometask07.service.UserService;
 
-import static ru.homework.hometask07.model.UserRolesConstants.ADMIN;
+import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
 
 @Controller
 @Slf4j
@@ -22,8 +22,6 @@ import static ru.homework.hometask07.model.UserRolesConstants.ADMIN;
 public class MvcUserController {
     private final UserService userService;
     private final UserMapper userMapper;
-
-    //TODO продожить MVC(фильм и директор), здесь авторизацию делать
 
     @GetMapping("")
     public String registration(Model model) {

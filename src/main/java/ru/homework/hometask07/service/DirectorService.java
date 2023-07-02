@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.dao.DirectorRepository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
+import ru.homework.hometask07.dao.entity.FilmEntity;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DirectorService {
     private final DirectorRepository directorRepository;
+    private final FilmService filmService;
 
     public List<DirectorEntity> getAllDirectors() {
         return directorRepository.findAll();
@@ -38,5 +40,12 @@ public class DirectorService {
 
     public void deleteDirectorByID(Integer id) {
         directorRepository.deleteById(id);
+    }
+
+    public DirectorEntity filmPost(Integer filmId, Integer directorId) {
+        FilmEntity filmEntity = filmService.getFilmByID(filmId);
+        DirectorEntity directorEntity = getDirectorByID(directorId);
+        directorEntity.getFilms().add(filmEntity);
+        return directorRepository.save(directorEntity);
     }
 }

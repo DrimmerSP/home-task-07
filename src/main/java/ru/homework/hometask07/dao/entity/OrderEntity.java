@@ -27,7 +27,7 @@ public class OrderEntity {
 
     //    @Column(name = "film_id")
     @OneToMany
-//    @JoinColumn(name = "id", nullable = false,   //film-id
+//    @JoinColumn(name = "filmId", nullable = false,   //film-filmId
 //            foreignKey = @ForeignKey(name = "FK_ORDER_FILM"))
     @JoinTable(
             name = "order_films",

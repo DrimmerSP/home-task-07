@@ -31,7 +31,7 @@ public class FilmMapper {
 
     public FilmEntity dtoToEntity(FilmDto dto) {
         return FilmEntity.builder()
-                .id(dto.id())
+                .id(dto.filmId())
                 .title(dto.title())
                 .description(dto.description())
                 .premierDate(dto.premierDate())

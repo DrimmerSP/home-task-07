@@ -74,7 +74,7 @@ public class JwtTokenUtil {
         try {
             claimJSON = objectMapper.readTree(claim);
         } catch (JsonProcessingException e) {
-            log.error("JWTTokenUtil#getUsernameFromToken(): {}", e.getMessage());
+            log.error("JwtTokenUtil#getUsernameFromToken(): {}", e.getMessage());
         }
 
         if (claimJSON != null) {

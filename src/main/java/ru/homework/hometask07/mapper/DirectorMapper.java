@@ -27,7 +27,7 @@ public class DirectorMapper {
 
     public DirectorEntity dtoToEntity(DirectorDto dto) {
         return DirectorEntity.builder()
-                .id(dto.id())
+                .id(dto.directorId())
                 .directorFIO(dto.directorFIO())
                 .position(dto.position())
                 .films(dto.filmIDs() == null ? Collections.emptyList() : dto.filmIDs().stream()

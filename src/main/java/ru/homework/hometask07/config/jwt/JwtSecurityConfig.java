@@ -14,22 +14,21 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import ru.homework.hometask07.service.userdetails.CustomUserDetailsService;
 
-import static com.jpc16tuesday.springlibraryproject.library.constants.SecurityConstants.RESOURCES_WHITE_LIST;
-import static com.jpc16tuesday.springlibraryproject.library.constants.SecurityConstants.USERS_REST_WHITE_LIST;
-import static com.jpc16tuesday.springlibraryproject.library.constants.UserRolesConstants.ADMIN;
-import static com.jpc16tuesday.springlibraryproject.library.constants.UserRolesConstants.USER;
+import static ru.homework.hometask07.constants.SecurityConstants.*;
+import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
+import static ru.homework.hometask07.constants.UserRolesConstants.USER;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class JWTSecurityConfig {
+public class JwtSecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
-    private final JWTTokenFilter jwtTokenFilter;
+    private final JwtTokenFilter jwtTokenFilter;
 
-    public JWTSecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder,
+    public JwtSecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder,
                              CustomUserDetailsService customUserDetailsService,
-                             JWTTokenFilter jwtTokenFilter) {
+                             JwtTokenFilter jwtTokenFilter) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtTokenFilter = jwtTokenFilter;
     }
@@ -43,7 +42,8 @@ public class JWTSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(RESOURCES_WHITE_LIST.toArray(String[]::new)).permitAll()
                         .requestMatchers(USERS_REST_WHITE_LIST.toArray(String[]::new)).permitAll()
-                        .requestMatchers("/authors/**").hasAnyRole(ADMIN, USER)
+                        .requestMatchers(USERS_WHITE_LIST.toArray(String[]::new)).permitAll()
+                        .requestMatchers("/directors/**").hasAnyRole(ADMIN.name(), USER.name())
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling()

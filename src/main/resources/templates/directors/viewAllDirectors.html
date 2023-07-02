@@ -28,7 +28,7 @@
     <table class="table">
         <thead>
         <tr>
-            <!--    <th scope="col">[id]</th>-->
+            <!--    <th scope="col">[filmId]</th>-->
             <th scope="col">[DirectorFIO]</th>
             <th scope="col">[Position]</th>
             <th scope="col">[FilmIDs]</th>
@@ -38,7 +38,7 @@
 
         <tbody>
         <tr th:each="director : ${directors}">
-            <!--    <td th:text="${director.id}"></td>-->
+            <!--    <td th:text="${director.filmId}"></td>-->
             <td th:text="${director.directorFIO}"></td>
             <td th:text="${director.position}"></td>
             <td th:text="${director.filmIDs}"></td>
