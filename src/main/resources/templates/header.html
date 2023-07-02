@@ -29,16 +29,33 @@
                             ]</a>
                     </li>
 
+                    <li sec:authorize="isAuthenticated() && (hasRole('USER'))" class="nav-link">
+                        <a class="nav-link active" aria-current="page" th:href="'/rent/user-films/'
+                        + ${#authentication.getPrincipal().getUserId()}">Мои фильмы</a>
+                    </li>
+
                     <!-- TODO: добавить просмотр пользователей и ролей от админа-->
                 </ul>
+
+                <form class="d-flex" sec:authorize="isAuthenticated()">
+                    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                </form>
+
+                <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">
+                    <a class="nav-link active" style="float: right"
+                       href="'/films/view'">Мои фильмы</a>
+                    <!-- TODO добавить эдпоинт просмотра аредованныхкупленных фильмов-->
+                </div>
 
                 <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">
                     <a class="nav-link active" style="float: right"
                        href="'/user/profile' + ${#authentication.getPrincipal().getUserId()}">Профиль</a>
                 </div>
+
                 <form class="d-flex" sec:authorize="!isAuthenticated()">
                     <a href="/login" class="btn btn-primary" role="button" aria-disabled="true">Войти</a>
                 </form>
+
                 <form class="d-flex" sec:authorize="isAuthenticated()">
                     <a href="/logout" class="btn btn-primary" role="button" aria-disabled="true">Выйти</a>
                 </form>

@@ -10,6 +10,7 @@ public record OrderDto(
         List<Integer> filmID,
         LocalDate rentFrom,
         Duration rentPeriod,
-        Boolean purchase
+        Boolean purchase,
+        FilmDto filmDto
 ) {
 }

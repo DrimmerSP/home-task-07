@@ -10,7 +10,7 @@ VALUES ('TANZANIA', 'COMEDY', '2020-06-20', 'Night runing', 'calculation pinch n
 
 INSERT INTO public.role (description, title)
 VALUES ('Admin', 'admin'),
-       ('Director', 'director'),
+       ('Manager', 'manager'),
        ('User', 'user');
 
 INSERT INTO public.users (address, birth_date, created_when, email, first_name, last_name, login, middle_name, password,

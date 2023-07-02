@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.FilmDto;
+import ru.homework.hometask07.controller.dto.FilmSearchDto;
 import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.service.FilmService;
 
@@ -45,6 +46,16 @@ public class MvcFilmController {
             result = authorService.listAllNotDeleted(pageRequest);
         }
         model.addAttribute("authors", result);*/
+    }
+
+    @PostMapping("/search")
+    public String searchFilms(@RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "size", defaultValue = "5") int pageSize,
+                              @ModelAttribute("filmSearchForm") FilmSearchDto filmSearchDto,
+                              Model model) {
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
+        model.addAttribute("films", filmService.searchFilm(filmSearchDto, pageRequest));
+        return "films/viewAllFilms";
     }
 
     // Блок добавления:
