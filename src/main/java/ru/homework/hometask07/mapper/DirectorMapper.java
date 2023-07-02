@@ -32,7 +32,7 @@ public class DirectorMapper extends GenericMapper<DirectorEntity, DirectorDto> {
     }
 
     @Override
-    public DirectorDto toDTO(DirectorEntity entity) {
+    public DirectorDto toDto(DirectorEntity entity) {
         DirectorDto result = new DirectorDto();
         result.setId(entity.getId());
         result.setDirectorFIO(entity.getDirectorFIO());

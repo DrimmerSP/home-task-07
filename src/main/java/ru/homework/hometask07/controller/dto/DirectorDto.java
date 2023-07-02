@@ -7,8 +7,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class DirectorDto extends GenericDto {
     private String directorFIO;
     private Integer position;

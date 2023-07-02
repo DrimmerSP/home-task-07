@@ -21,7 +21,7 @@ public abstract class GenericMapper<E extends GenericEntity, D extends GenericDt
     public abstract E toEntity(D dto);
 
     @Override
-    public abstract D toDTO(E entity);
+    public abstract D toDto(E entity);
 
     @Override
     public List<E> toEntities(List<D> dtos) {
@@ -29,7 +29,7 @@ public abstract class GenericMapper<E extends GenericEntity, D extends GenericDt
     }
 
     @Override
-    public List<D> toDTOs(List<E> entities) {
-        return entities.stream().map(this::toDTO).collect(Collectors.toList());
+    public List<D> toDtos(List<E> entities) {
+        return entities.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

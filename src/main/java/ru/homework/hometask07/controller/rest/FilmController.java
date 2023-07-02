@@ -23,37 +23,35 @@ public class FilmController {
     @Operation(description = "Получить список всех фильмов.")
     @GetMapping
     public List<FilmDto> getAllFilm() {
-        return filmService.getAllFilm().stream()
-                .map(filmMapper::entityToDto)
-                .toList();
+        return filmMapper.toDtos(filmService.listAll());
     }
 
     @Operation(description = "Получить название фильма по ID.")
     @GetMapping("/{id}")
-    public FilmDto getFilmByID(@PathVariable Integer id) {
-        return filmMapper.entityToDto(filmService.getFilmByID(id));
+    public FilmDto getFilmByID(@PathVariable Long id) {
+        return filmMapper.toDto(filmService.getOne(id));
     }
 
     @Operation(description = "Разместить фильм в базу данных.")
     @PostMapping
     public FilmDto filmPost(@RequestBody FilmDto body) {
-        return filmMapper.entityToDto(filmService.filmPost(filmMapper.dtoToEntity(body)));
+        return filmMapper.toDto(filmService.create(filmMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить информацию о фильме.")
     @PutMapping("/{id}")
-    public FilmDto updateFilm(@PathVariable Integer id, @RequestBody FilmDto body) {
-        return filmMapper.entityToDto(filmService.updateFilm(id, filmMapper.dtoToEntity(body)));
+    public FilmDto updateFilm(@PathVariable Long id, @RequestBody FilmDto body) {
+        return filmMapper.toDto(filmService.update(id, filmMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить запись о фильме.")
     @DeleteMapping("/{id}")
-    public void deleteFilmByID(@PathVariable Integer id) {
-        filmService.deleteFilmByID(id);
+    public void deleteFilmByID(@PathVariable Long id) {
+        filmService.delete(id);
     }
 
     @PutMapping("/{id}/adddirector")
-    public void addDirectorToFilm(@PathVariable(value = "id") Integer filmId, @RequestParam Integer directorId) {
+    public void addDirectorToFilm(@PathVariable(value = "id") Long filmId, @RequestParam Long directorId) {
         updateFilmDirectorService.updateFilmDirector(filmId, directorId);
     }
 }

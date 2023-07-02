@@ -1,5 +1,7 @@
 package ru.homework.hometask07.controller.dto;
 
+import lombok.*;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;

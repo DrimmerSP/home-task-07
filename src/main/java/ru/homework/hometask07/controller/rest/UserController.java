@@ -41,25 +41,25 @@ public class UserController {
     @Operation(description = "Получить список всех пользователей.")
     @GetMapping
     public List<UserDto> getAllUsers() {
-        return  userMapper.toDTOs(userService.listAll());
+        return userMapper.toDtos(userService.listAll());
     }
 
     @Operation(description = "Полузить имя пользователя по ID.")
     @GetMapping("/{id}")
     public UserDto getUserByID(@PathVariable Long id) {
-        return userMapper.toDTO(userService.getOne(id));
+        return userMapper.toDto(userService.getOne(id));
     }
 
     @Operation(description = "Добавить пользователя.")
     @PostMapping
     public UserDto createUser(@RequestBody UserDto body) {
-        return userMapper.toDTO(userService.create(userMapper.toEntity(body)));
+        return userMapper.toDto(userService.create(userMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить информацию о пользователе.")
     @PutMapping("/{id}")
     public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto body) {
-        return userMapper.toDTO(userService.update(id, userMapper.toEntity(body)));
+        return userMapper.toDto(userService.update(id, userMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить запись о пользователе.")
@@ -69,8 +69,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}/inuse")
-    public List<FilmDto> getFilmsInUse(@PathVariable(value = "id") Integer userId) {
-        return filmMapper.toDTOs(orderService.getFilmsInUse(userId));
+    public List<FilmDto> getFilmsInUse(@PathVariable(value = "id") Long userId) {
+        return filmMapper.toDtos(orderService.getFilmsInUse(userId));
     }
 
     @PostMapping("/login")

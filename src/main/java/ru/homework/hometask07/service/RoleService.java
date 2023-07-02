@@ -16,7 +16,7 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public RoleEntity getRoleByID(Integer id) {
+    public RoleEntity getRoleByID(Long id) {
         return roleRepository.findById(id).orElse(null);
     }
 
@@ -24,12 +24,12 @@ public class RoleService {
         return roleRepository.save(body);
     }
 
-    public RoleEntity updateRole(Integer id, RoleEntity body) {
+    public RoleEntity updateRole(Long id, RoleEntity body) {
         body.setId(id);
         return roleRepository.save(body);
     }
 
-    public void deleteRoleByID(Integer id) {
+    public void deleteRoleByID(Long id) {
         roleRepository.deleteById(id);
     }
 

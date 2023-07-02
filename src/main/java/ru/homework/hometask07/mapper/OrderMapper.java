@@ -36,7 +36,7 @@ public class OrderMapper extends GenericMapper<OrderEntity, OrderDto>{
     }
 
     @Override
-    public OrderDto toDTO(OrderEntity entity) {
+    public OrderDto toDto(OrderEntity entity) {
         OrderDto result = new OrderDto();
         result.setId(entity.getId());
         result.setRentFrom(entity.getRentFrom());

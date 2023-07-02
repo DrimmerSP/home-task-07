@@ -14,7 +14,7 @@ public class CustomUserDetails implements UserDetails {
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
     private final String username;
-    private final Integer id;
+    private final Long id;
     private final Boolean enabled;
     private final Boolean accountNotExpired;
     private final Boolean accountNotLocked;
@@ -24,7 +24,7 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(String password,
                              Collection<? extends GrantedAuthority> authorities,
                              String username,
-                             Integer id) {
+                             Long id) {
         this.password = password;
         this.authorities = authorities;
         this.username = username;
@@ -70,7 +70,7 @@ public class CustomUserDetails implements UserDetails {
         return enabled;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return id;
     }
 

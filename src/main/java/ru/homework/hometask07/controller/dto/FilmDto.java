@@ -1,5 +1,6 @@
 package ru.homework.hometask07.controller.dto;
 
+import lombok.*;
 import ru.homework.hometask07.model.Country;
 import ru.homework.hometask07.model.Genre;
 

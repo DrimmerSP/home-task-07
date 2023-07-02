@@ -34,7 +34,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
     }
 
     @Override
-    public UserDto toDTO(UserEntity entity) {
+    public UserDto toDto(UserEntity entity) {
         UserDto result = new UserDto();
         result.setId(entity.getId());
         result.setLogin(entity.getLogin());

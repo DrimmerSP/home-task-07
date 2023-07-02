@@ -13,7 +13,7 @@ public class UpdateFilmDirectorService {
     private final DirectorRepository directorRepository;
     private final FilmRepository filmRepository;
 
-    public void updateFilmDirector(Integer filmId, Integer directorId) {
+    public void updateFilmDirector(Long filmId, Long directorId) {
         FilmEntity filmEntity = filmRepository.findById(filmId).orElseThrow(() ->
                 new RuntimeException("Фильм ID: %s не найден.".formatted(filmId)));
         DirectorEntity directorEntity = directorRepository.findById(directorId).orElseThrow(() ->

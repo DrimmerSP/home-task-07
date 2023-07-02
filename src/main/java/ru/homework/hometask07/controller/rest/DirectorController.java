@@ -22,7 +22,6 @@ import java.util.List;
 @SecurityRequirement(name = "Bearer Authentication")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DirectorController {
-    //    private final DirectorRepository directorRepository;
     private final DirectorService directorService;
     private final DirectorMapper directorMapper;
     private final UpdateFilmDirectorService updateFilmDirectorService;
@@ -30,45 +29,43 @@ public class DirectorController {
     @Operation(description = "Получить список всех продюссеров.")
     @GetMapping
     public List<DirectorDto> getAllDirectors() {
-        return directorService.getAllDirectors().stream()
-                .map(directorMapper::entityToDto)
-                .toList();
+        return directorMapper.toDtos(directorService.listAll());
     }
 
     @Operation(description = "Полудчить имя продюссера по ID.")
     @GetMapping("/{id}")
-    public DirectorDto getDirectorByID(@PathVariable Integer id) {
-        return directorMapper.entityToDto(directorService.getDirectorByID(id));
+    public DirectorDto getDirectorByID(@PathVariable Long id) {
+        return directorMapper.toDto(directorService.getDirectorByID(id));
     }
 
     @Operation(description = "Добавить продюссера.")
     @PostMapping
     public DirectorDto createDirector(@RequestBody DirectorDto body) {
-        return directorMapper.entityToDto(directorService.createDirector(directorMapper.dtoToEntity(body)));
+        return directorMapper.toDto(directorService.create(directorMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить данные о продюссере.")
     @PutMapping("/{id}")
-    public DirectorDto updateDirector(@PathVariable Integer id, @RequestBody DirectorDto body) {
-        return directorMapper.entityToDto(directorService.updateDirector(id, directorMapper.dtoToEntity(body)));
+    public DirectorDto updateDirector(@PathVariable Long id, @RequestBody DirectorDto body) {
+        return directorMapper.toDto(directorService.update(id, directorMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить запись о продюссере.")
     @DeleteMapping("/{id}")
-    public void deleteDirectorByID(@PathVariable Integer id) {
-        directorService.deleteDirectorByID(id);
+    public void deleteDirectorByID(@PathVariable Long id) {
+        directorService.delete(id);
     }
 
     @PutMapping("/{id}/addfilm")
-    public void addFilmToDirector(@PathVariable(value = "id") Integer directorId, @RequestParam Integer filmId) {
+    public void addFilmToDirector(@PathVariable(value = "id") Long directorId, @RequestParam Long filmId) {
         updateFilmDirectorService.updateFilmDirector(directorId, filmId);
     }
 
     @Operation(description = "Добавить фильм к продюссеру")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DirectorDto> addBook(@RequestParam(value = "filmId") Integer filmId,
-                                               @RequestParam(value = "directorId") Integer directorId) {
+    public ResponseEntity<DirectorDto> addBook(@RequestParam(value = "filmId") Long filmId,
+                                               @RequestParam(value = "directorId") Long directorId) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(directorMapper.entityToDto(directorService.filmPost(filmId, directorId)));
+                .body(directorMapper.toDto(directorService.addDirectorToFilm(filmId, directorId)));
     }
 }

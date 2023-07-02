@@ -37,13 +37,13 @@ public abstract class GenericService<E extends GenericEntity, D extends GenericD
 
     public Page<D> listAll(Pageable pageable) {
         Page<E> objects = repository.findAll(pageable);
-        List<D> result = mapper.toDTOs(objects.getContent());
+        List<D> result = mapper.toDtos(objects.getContent());
         return new PageImpl<>(result, pageable, objects.getTotalElements());
     }
 
     public E getOne(final Long id) {
         return repository.findById(id).orElseThrow(() ->
-                new NotFoundException("Данных по заданному id: " + id + " не найдено!"));
+                new NotFoundException("Данных по заданному id: %s не найдено!".formatted(id)));
     }
 
     public E create(E newObject) {
@@ -52,6 +52,11 @@ public abstract class GenericService<E extends GenericEntity, D extends GenericD
 
     public E update(E updatedObject) {
         return repository.save(updatedObject);
+    }
+
+    public E update(Long id, E updateObject) {
+        updateObject.setId(id);
+        return repository.save(updateObject);
     }
 
     public void delete(final Long id) {

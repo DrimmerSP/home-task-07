@@ -21,32 +21,30 @@ public class RoleController {
     @Operation(description = "Получить список всех жанров.")
     @GetMapping
     public List<RoleDto> getAllRoles() {
-        return roleService.getAllRoles().stream()
-                .map(roleMapper::entityToDto)
-                .toList();
+        return roleMapper.toDtos(roleService.getAllRoles());
     }
 
     @Operation(description = "Получить жанр по ID.")
     @GetMapping("/{id}")
-    public RoleDto getRolesByID(@PathVariable Integer id) {
-        return roleMapper.entityToDto(roleService.getRoleByID(id));
+    public RoleDto getRolesByID(@PathVariable Long id) {
+        return roleMapper.toDto(roleService.getRoleByID(id));
     }
 
     @Operation(description = "Добавить жанр.")
     @PostMapping
     public RoleDto createRole(@RequestBody RoleDto body) {
-        return roleMapper.entityToDto(roleService.createRole(roleMapper.dtoToEntity(body)));
+        return roleMapper.toDto(roleService.createRole(roleMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить жанр.")
     @PutMapping("/{id}")
-    public RoleDto updateRole(@PathVariable Integer id, @RequestBody RoleDto body) {
-        return roleMapper.entityToDto(roleService.updateRole(id, roleMapper.dtoToEntity(body)));
+    public RoleDto updateRole(@PathVariable Long id, @RequestBody RoleDto body) {
+        return roleMapper.toDto(roleService.updateRole(id, roleMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить жанр.")
     @DeleteMapping("/{id}")
-    public void deleteRoleByID(@PathVariable Integer id){
+    public void deleteRoleByID(@PathVariable Long id) {
         roleService.deleteRoleByID(id);
     }
 }

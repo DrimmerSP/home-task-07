@@ -30,16 +30,16 @@ public class UserService extends GenericService<UserEntity, UserDto> {
 
     @Override
     public UserEntity create(UserEntity body) {
-        body.setRole(roleService.getRoleByID(1));
+        body.setRole(roleService.getRoleByID(1L));
         body.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
         body.setCreatedWhen(LocalDateTime.now());
         return userRepository.save(body);
     }
 
-    public UserEntity update(Long id, UserEntity body) {
-        body.setId(id);
-        return userRepository.save(body);
-    }
+//    public UserEntity update(Long id, UserEntity body) {
+//        body.setId(id);
+//        return userRepository.save(body);
+//    }
 
     public UserEntity getUserByLogin(final String login) {
         return userRepository.findByLogin(login).orElse(null);

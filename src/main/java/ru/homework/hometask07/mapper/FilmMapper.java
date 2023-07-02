@@ -35,7 +35,7 @@ public class FilmMapper extends GenericMapper<FilmEntity, FilmDto>{
     }
 
     @Override
-    public FilmDto toDTO(FilmEntity entity) {
+    public FilmDto toDto(FilmEntity entity) {
         FilmDto result = new FilmDto();
         result.setId(entity.getId());
         result.setTitle(entity.getTitle());
