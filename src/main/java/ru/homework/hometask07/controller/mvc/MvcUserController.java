@@ -40,8 +40,8 @@ public class MvcUserController {
             bindingResult.rejectValue("email", "error.email", "Такой e-mail уже существует");
             return "registration";
         }
-        userDTO.setRoleID(1);   // заглушка  //
-        userService.createUser(userMapper.dtoToEntity(userDTO));
+        userDTO.setRoleID(1L);   // заглушка  //
+        userService.create(userMapper.toEntity(userDTO));
         return "redirect:login";
     }
 }

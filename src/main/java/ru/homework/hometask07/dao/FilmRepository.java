@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 
 @Repository
-public interface FilmRepository extends JpaRepository<FilmEntity, Integer> {
+public interface FilmRepository extends JpaRepository<FilmEntity, Long> {
 }

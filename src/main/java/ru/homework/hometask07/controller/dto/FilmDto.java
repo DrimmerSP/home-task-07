@@ -6,13 +6,16 @@ import ru.homework.hometask07.model.Genre;
 import java.time.LocalDate;
 import java.util.List;
 
-public record FilmDto(
-        Integer filmId,
-        String title,
-        LocalDate premierDate,
-        Country country,
-        Genre genre,
-        String description,
-        List<Integer> directorIDs
-) {
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public final class FilmDto extends GenericDto {
+    private String title;
+    private LocalDate premierDate;
+    private Country country;
+    private Genre genre;
+    private String description;
+    private List<Long> directorIDs;
 }

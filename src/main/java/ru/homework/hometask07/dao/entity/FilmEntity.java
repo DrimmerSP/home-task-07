@@ -15,28 +15,20 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FilmEntity {
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
+public class FilmEntity extends GenericEntity {
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "description")
     private String description;
-
     @Column(name = "premier_date")
     private LocalDate premierDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "country")
     private Country country;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "genre")
     private Genre genre;
-
     @ManyToMany
     @JoinTable(
             name = "film_directors",

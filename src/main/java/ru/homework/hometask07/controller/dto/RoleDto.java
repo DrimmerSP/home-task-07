@@ -1,8 +1,14 @@
 package ru.homework.hometask07.controller.dto;
 
-public record RoleDto(
-        Integer id,
-        String title,
-        String description
-) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RoleDto {
+    private Long id;
+    private String title;
+    private String description;
 }

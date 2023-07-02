@@ -18,9 +18,9 @@ public class RoleMapper {
 
     public RoleEntity dtoToEntity(RoleDto dto) {
         return new RoleEntity(
-                dto.id(),
-                dto.title(),
-                dto.description()
+                dto.getId(),
+                dto.getTitle(),
+                dto.getDescription()
         );
     }
 }

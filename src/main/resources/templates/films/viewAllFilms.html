@@ -12,8 +12,44 @@
 
 <body>
 <div layout:fragment="content">
-    <h1>Фильмы</h1>
+    <div>
+        <hr class="hr"/>
+        <h3>Поиск книги</h3>
+        <form method="POST" th:action="@{/books/search}" th:object="${bookSearchForm}">
+            <div class="mt-0 row g-2">
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="bookTitle" type="text" class="form-control" id="bookTitle" placeholder="Название книги">
+                        <label for="bookTitle">Название книги</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <input name="authorFio" type="text" class="form-control" id="authorFio" placeholder="ФИО автора">
+                        <label for="authorFio">Автор</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" name="genre" id="genre">
+                            <option selected th:value="null">Выберете жанр из списка</option>
+                            <option th:each="genre : ${T(com.jpc16tuesday.springlibraryproject.library.model.Genre).values()}"
+                                    th:value="${genre}" th:text="${genre.getGenreTextDisplay()}"></option>
+                        </select>
+                        <label for="genre">Жанр</label>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <button type="submit" class="btn btn-secondary">Найти книгу</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr class="mt-3 hr"/>
     <div class="row">
+        <div class="col">
+            <h2>Все фильмы в каталоге</h2>
+        </div>
         <div class="col">
             <a href="view/add"
                sec:authorize="isAuthenticated() && (hasRole('ADMIN'))"
@@ -23,39 +59,66 @@
                aria-disabled="true">Добавить фильм</a>
         </div>
     </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">[Title]</th>
-            <th scope="col">[Description]</th>
-            <th scope="col">[Genre]</th>
-            <th scope="col">[Country]</th>
-            <th scope="col">[PremierDate]</th>
-            <th scope="col">[DirectorIDs]</th>
-            <!--            <th scope="col">Автор(ы)</th>-->
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="film : ${films}">
-            <td th:text="${film.title()}">
-                <!--                                <a th:href="'/books/' + ${book.getId()}" ></a>-->
-            </td>
-            <td th:text="${film.description()}"></td>
-            <td th:text="${film.genre().getGenreTextDisplay()}"></td>
-            <td th:text="${film.country().getCountryTextDisplay()}"></td>
-            <!--<td th:classappend="${film.getAmount() <= 0} ? 'not-enough-book'"
-                th:text="${film.getAmount()} <= 0 ? 'Нет в наличии' : ${film.getAmount()}"></td>-->
-            <td th:text="${film.premierDate()}"></td>
-            <td th:text="${film.directorIDs()}"></td>
-            <!--            <td>-->
-            <!--                <ul>-->
-            <!--                    <li th:each="author : ${book.getAuthors()}" th:text="${author.getAuthorFio()}"></li>-->
-            <!--                </ul>-->
-            <!--            </td>-->
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">[Title]</th>
+                <th scope="col">[Description]</th>
+                <th scope="col">[Genre]</th>
+                <th scope="col">[Country]</th>
+                <th scope="col">[PremierDate]</th>
+                <th scope="col">[DirectorIDs]</th>
+                <!--            <th scope="col">Автор(ы)</th>-->
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="film : ${films}">
+                <td th:text="${film.title()}">
+                    <!--                                <a th:href="'/books/' + ${book.getId()}" ></a>-->
+                </td>
+                <td th:text="${film.description()}"></td>
+                <td th:text="${film.genre().getGenreTextDisplay()}"></td>
+                <td th:text="${film.country().getCountryTextDisplay()}"></td>
+                <!--<td th:classappend="${film.getAmount() <= 0} ? 'not-enough-book'"
+                    th:text="${film.getAmount()} <= 0 ? 'Нет в наличии' : ${film.getAmount()}"></td>-->
+                <td th:text="${film.premierDate()}"></td>
+<!--                <td th:text="${film.directorIDs()}"></td>-->
+                            <td>
+                                <ul>
+                                    <li th:each="director : ${film.getDirectorInfo()}" th:text="${director.getDirectorFio()}"></li>
+                                </ul>
+                            </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <nav aria-label="Pagination" th:if="${films.totalPages gt 0}">
+            <ul class="pagination justify-content-center font-weight-bold">
+                <li class="page-item" th:classappend="${films.number eq 0} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/films?page={id}(id=${films.number lt 2 ? 1 : films.number})}"
+                       aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:classappend="${i eq films.number + 1} ? 'active'"
+                    th:each="i : ${#numbers.sequence( 1, films.totalPages, 1)}">
+                    <a class="page-link" th:href="@{/films?page={id}(id=${i})}" th:text="${i}"
+                       th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                </li>
+                <li class="page-item" th:classappend="${films.number eq films.totalPages - 1} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/films?page={id}(id=${films.number + 2})}"
+                       aria-label="Next" title="Next Page" data-toggle="tooltip">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,14 +12,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "directors")
-public class DirectorEntity {
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
+public class DirectorEntity extends GenericEntity{
 
     @Column(name = "director_fio")
     private String directorFIO;

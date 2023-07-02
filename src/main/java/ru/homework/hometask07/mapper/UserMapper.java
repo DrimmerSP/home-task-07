@@ -8,40 +8,50 @@ import ru.homework.hometask07.dao.entity.UserEntity;
 
 @Component
 @RequiredArgsConstructor
-public class UserMapper {
+public class UserMapper extends GenericMapper<UserEntity, UserDto> {
     private final RoleRepository roleRepository;
 
-    public UserDto entityToDto(UserEntity entity) {
-        return new UserDto(
-                entity.getId(),
-                entity.getLogin(),
-                entity.getPassword(),
-                entity.getFirstName(),
-                entity.getLastName(),
-                entity.getMiddleName(),
-                entity.getBirthDate(),
-                entity.getPhone(),
-                entity.getAddress(),
-                entity.getEmail(),
-                entity.getCreatedWhen(),
-                entity.getRole().getId()
-        );
+    @Override
+    public UserEntity toEntity(UserDto dto) {
+        UserEntity result = new UserEntity();
+        result.setId(dto.getId());
+        result.setLogin(dto.getLogin());
+        result.setPassword(dto.getPassword());
+        result.setFirstName(dto.getFirstName());
+        result.setLastName(dto.getLastName());
+        result.setMiddleName(dto.getMiddleName());
+        result.setBirthDate(dto.getBirthDate());
+        result.setPhone(dto.getPhone());
+        result.setAddress(dto.getAddress());
+        result.setEmail(dto.getEmail());
+        result.setCreatedWhen(dto.getCreatedWhen());
+        result.setCreatedBy(dto.getCreatedBy());
+        result.setDeletedWhen(dto.getDeletedWhen());
+        result.setDeletedBy(dto.getDeletedBy());
+        result.setDeleted(dto.isDeleted());
+        result.setRole(roleRepository.findById(dto.getRoleID()).orElse(null));
+        return result;
     }
 
-    public UserEntity dtoToEntity(UserDto dto) {
-        return UserEntity.builder()
-                .id(dto.getId())
-                .login(dto.getLogin())
-                .password(dto.getPassword())
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .middleName(dto.getMiddleName())
-                .birthDate(dto.getBirthDate())
-                .phone(dto.getPhone())
-                .address(dto.getAddress())
-                .email(dto.getEmail())
-                .createdWhen(dto.getCreatedWhen())
-                .role(roleRepository.findById(dto.getRoleID()).orElse(null))
-                .build();
+    @Override
+    public UserDto toDTO(UserEntity entity) {
+        UserDto result = new UserDto();
+        result.setId(entity.getId());
+        result.setLogin(entity.getLogin());
+        result.setPassword(entity.getPassword());
+        result.setFirstName(entity.getFirstName());
+        result.setLastName(entity.getLastName());
+        result.setMiddleName(entity.getMiddleName());
+        result.setBirthDate(entity.getBirthDate());
+        result.setPhone(entity.getPhone());
+        result.setAddress(entity.getAddress());
+        result.setEmail(entity.getEmail());
+        result.setCreatedWhen(entity.getCreatedWhen());
+        result.setCreatedBy(entity.getCreatedBy());
+        result.setDeletedWhen(entity.getDeletedWhen());
+        result.setDeletedBy(entity.getDeletedBy());
+        result.setDeleted(entity.isDeleted());
+        result.setRoleID(entity.getRole().getId());
+        return result;
     }
 }
