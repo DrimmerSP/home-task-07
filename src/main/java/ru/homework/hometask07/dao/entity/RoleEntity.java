@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoleEntity {
-//    @Column(name = "id", nullable = false)
+//    @Column(name = "filmId", nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.homework.hometask07.constants.UserRolesConstants;
 import ru.homework.hometask07.dao.entity.UserEntity;
-import ru.homework.hometask07.model.UserRolesConstants;
 import ru.homework.hometask07.service.UserService;
 
 import java.util.ArrayList;

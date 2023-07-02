@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record FilmDto(
-        Integer id,
+        Integer filmId,
         String title,
         LocalDate premierDate,
         Country country,

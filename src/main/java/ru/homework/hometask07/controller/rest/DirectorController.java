@@ -1,8 +1,12 @@
 package ru.homework.hometask07.controller.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.DirectorDto;
 import ru.homework.hometask07.mapper.DirectorMapper;
@@ -15,6 +19,8 @@ import java.util.List;
 @RequestMapping("/directors")
 @Tag(name = "Продюссер", description = "Автор или авторы фильма.")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "Bearer Authentication")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DirectorController {
     //    private final DirectorRepository directorRepository;
     private final DirectorService directorService;
@@ -56,5 +62,13 @@ public class DirectorController {
     @PutMapping("/{id}/addfilm")
     public void addFilmToDirector(@PathVariable(value = "id") Integer directorId, @RequestParam Integer filmId) {
         updateFilmDirectorService.updateFilmDirector(directorId, filmId);
+    }
+
+    @Operation(description = "Добавить фильм к продюссеру")
+    @RequestMapping(value = "/addFilm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DirectorDto> addBook(@RequestParam(value = "filmId") Integer filmId,
+                                               @RequestParam(value = "directorId") Integer directorId) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(directorMapper.entityToDto(directorService.filmPost(filmId, directorId)));
     }
 }

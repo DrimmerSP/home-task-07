@@ -1,3 +1,4 @@
+/*
 package ru.homework.hometask07.config;
 
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ import ru.homework.hometask07.service.userdetails.CustomUserDetailsService;
 
 import java.util.List;
 
-import static ru.homework.hometask07.model.UserRolesConstants.ADMIN;
-import static ru.homework.hometask07.model.UserRolesConstants.MANAGER;
+import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
+import static ru.homework.hometask07.constants.UserRolesConstants.MANAGER;
 
 @Configuration
 @EnableWebSecurity
@@ -79,4 +80,6 @@ public class WebSecurityConfig {
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
+
 }
+*/
