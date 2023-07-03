@@ -15,10 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
 public class OrderEntity extends GenericEntity {
-/*    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;*/
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false,
@@ -39,6 +35,9 @@ public class OrderEntity extends GenericEntity {
     @Column(name = "rent_to", nullable = false)
     private LocalDate rentTo;
 
-    @Column(name = "purchase")
+    @Column(name = "is_purchase")
     private Boolean isPurchase;
+
+    @Column(name = "is_return")
+    private Boolean isReturned;
 }

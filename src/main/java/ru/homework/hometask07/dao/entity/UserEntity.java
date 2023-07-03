@@ -17,10 +17,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
 public class UserEntity extends GenericEntity {
-/*    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;*/
 
     @Column(name = "login", nullable = false)
     private String login;

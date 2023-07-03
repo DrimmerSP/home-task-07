@@ -5,7 +5,7 @@ import ru.homework.hometask07.model.Country;
 import ru.homework.hometask07.model.Genre;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -18,5 +18,5 @@ public final class FilmDto extends GenericDto {
     private Country country;
     private Genre genre;
     private String description;
-    private List<Long> directorIDs;
+    private Map<Long, String> directors;
 }

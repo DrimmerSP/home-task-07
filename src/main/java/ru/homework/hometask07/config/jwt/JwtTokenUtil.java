@@ -25,7 +25,8 @@ import java.util.function.Function;
 public class JwtTokenUtil {
 
     //7 * 24 * 60 * 60 * 1000 = 1 неделя в миллисекундах (время жизни токена)
-    public static final long JWT_TOKEN_VALIDITY = 604800000; // 1 неделя в миллисекундах
+//    public static final long JWT_TOKEN_VALIDITY = 604800000; // 1 неделя в миллисекундах
+    public static final long JWT_TOKEN_VALIDITY = 63072000000L; // 1 неделя в миллисекундах
     public final String secret = "l123lsd7TI716t2_oe";
 
     private static final ObjectMapper objectMapper = new ObjectMapper();

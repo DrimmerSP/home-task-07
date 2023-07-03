@@ -17,4 +17,5 @@ public class OrderDto extends GenericDto {
     private LocalDate rentFrom;
     private Duration rentPeriod;
     private Boolean purchase;
+    private Boolean returned;
 }

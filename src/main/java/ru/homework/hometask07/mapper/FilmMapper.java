@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.dao.DirectorRepository;
+import ru.homework.hometask07.dao.entity.DirectorEntity;
 import ru.homework.hometask07.dao.entity.FilmEntity;
-import ru.homework.hometask07.dao.entity.GenericEntity;
 
 import java.util.stream.Collectors;
 
@@ -24,8 +24,9 @@ public class FilmMapper extends GenericMapper<FilmEntity, FilmDto> {
         result.setCountry(dto.getCountry());
         result.setGenre(dto.getGenre());
         result.setDescription(dto.getDescription());
-        result.setDirectors(dto.getDirectorIDs().stream()
-                .map(id -> directorRepository.findById(id).orElse(null)).collect(Collectors.toList()));
+        result.setDirectors(dto.getDirectors().keySet().stream()
+                .map(s -> directorRepository.findById(s).orElse(null))
+                .collect(Collectors.toList()));
         result.setCreatedWhen(dto.getCreatedWhen());
         result.setCreatedBy(dto.getCreatedBy());
         result.setDeletedWhen(dto.getDeletedWhen());
@@ -43,7 +44,8 @@ public class FilmMapper extends GenericMapper<FilmEntity, FilmDto> {
         result.setCountry(entity.getCountry());
         result.setGenre(entity.getGenre());
         result.setDescription(entity.getDescription());
-        result.setDirectorIDs(entity.getDirectors().stream().map(GenericEntity::getId).collect(Collectors.toList()));
+        result.setDirectors(entity.getDirectors().stream()
+                .collect(Collectors.toMap(DirectorEntity::getId, DirectorEntity::getDirectorFIO)));
         result.setCreatedWhen(entity.getCreatedWhen());
         result.setCreatedBy(entity.getCreatedBy());
         result.setDeletedWhen(entity.getDeletedWhen());

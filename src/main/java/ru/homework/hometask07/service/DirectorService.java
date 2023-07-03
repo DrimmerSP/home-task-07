@@ -24,10 +24,6 @@ public class DirectorService extends GenericService<DirectorEntity, DirectorDto>
         this.filmService = filmService;
     }
 
-//    public List<DirectorEntity> listAll() {
-//        return directorRepository.findAll();
-//    }
-
     public Page<DirectorEntity> getAllDirectors(PageRequest pageRequest) {  //добавил для вывода страницы
         return directorRepository.findAll(pageRequest);
     }
@@ -36,19 +32,6 @@ public class DirectorService extends GenericService<DirectorEntity, DirectorDto>
         return directorRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Режиссёр ID: %s не найден.".formatted(id)));
     }
-
-//    public DirectorEntity create(DirectorEntity body) {
-//        return directorRepository.save(body);
-//    }
-
-//    public DirectorEntity update(Long id, DirectorEntity body) {
-//        body.setId(id);
-//        return directorRepository.save(body);
-//    }
-
-//    public void delete(Long id) {
-//        directorRepository.deleteById(id);
-//    }
 
     public DirectorEntity addDirectorToFilm(Long filmId, Long directorId) {
         FilmEntity filmEntity = filmService.getOne(filmId);

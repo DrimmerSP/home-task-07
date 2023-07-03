@@ -1,9 +1,11 @@
 package ru.homework.hometask07.service;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.controller.dto.FilmDto;
+import ru.homework.hometask07.controller.dto.FilmSearchDto;
 import ru.homework.hometask07.dao.FilmRepository;
 import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
@@ -22,17 +24,22 @@ public class FilmService extends GenericService<FilmEntity, FilmDto> {
         this.filmRepository = filmRepository;
     }
 
-    @Override
-    public List<FilmEntity> listAll() {
-        return filmRepository.findAll();
-    }
+    public Page<FilmDto> searchFilm(FilmSearchDto filmSearchDTO,
+                                    Pageable pageRequest) {
 
-    public Page<FilmEntity> listAll(PageRequest pageRequest) {  //добавил для вывода страницы
-        return filmRepository.findAll(pageRequest);
-    }
+        String genre = filmSearchDTO.getGenre() != null
+                ? String.valueOf(filmSearchDTO.getGenre().ordinal())
+                : null;
 
-//    public FilmEntity update(Long id, FilmEntity body) {
-//        body.setId(id);
-//        return filmRepository.save(body);
-//    }
+        Page<FilmEntity> filmsPaginated = ((FilmRepository) repository).searchFilms(
+                filmSearchDTO.getFilmTitle(),
+                genre,
+                filmSearchDTO.getDirectorFIO(),
+                pageRequest
+        );
+
+        List<FilmDto> result = mapper.toDtos(filmsPaginated.getContent());
+        return new PageImpl<>(result, pageRequest, filmsPaginated.getTotalElements());
+
+    }
 }
