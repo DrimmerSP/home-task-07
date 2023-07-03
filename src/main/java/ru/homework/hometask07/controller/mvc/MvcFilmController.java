@@ -30,7 +30,7 @@ public class MvcFilmController {
                          Model model) {
 
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
-        List<FilmDto> result = filmService.getAllFilm(pageRequest).stream().map(filmMapper::entityToDto).toList();
+        List<FilmDto> result = filmService.listAll(pageRequest).stream().map(filmMapper::toDto).toList(); // TODO: исправить на новую пагинацию.
         model.addAttribute("films", result);
 
         return "films/viewAllFilms";
@@ -54,7 +54,7 @@ public class MvcFilmController {
                               @ModelAttribute("filmSearchForm") FilmSearchDto filmSearchDto,
                               Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
-        model.addAttribute("films", filmService.searchFilm(filmSearchDto, pageRequest));
+//        model.addAttribute("films", filmService.searchFilm(filmSearchDto, pageRequest));
         return "films/viewAllFilms";
     }
 
@@ -69,7 +69,7 @@ public class MvcFilmController {
     public String filmPost(@ModelAttribute("filmForm") FilmDto newFilm) {
         log.info("POST: Получен запрос на добавление нового фильма {}", newFilm.toString());
 
-        filmService.filmPost(filmMapper.dtoToEntity(newFilm));
+        filmService.create(filmMapper.toEntity(newFilm));
 
         return "redirect:/films/view";
     }

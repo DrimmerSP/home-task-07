@@ -8,9 +8,9 @@ import ru.homework.hometask07.dao.entity.OrderEntity;
 import java.util.List;
 
 
-public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
-    @Query("select o.film from OrderEntity as o where o.user.id = :userId and o.purchase = true")
-    List<FilmEntity> getFilmsInUseByUserId(Integer userId);
+public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
+    @Query("select o.films from OrderEntity as o where o.user.id = :userId and o.isPurchase = true")
+    List<FilmEntity> getFilmsInUseByUserId(Long userId);
 
 
 }

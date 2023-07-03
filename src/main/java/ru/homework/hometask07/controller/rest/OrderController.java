@@ -22,33 +22,31 @@ public class OrderController {
     @Operation(description = "Получить список всех заказов.")
     @GetMapping
     public List<OrderDto> getAllOrders() {
-        return orderService.getAllOrders().stream()
-                .map(orderMapper::entityToDto)
-                .toList();
+        return orderMapper.toDtos(orderService.listAll());
     }
 
     @Operation(description = "Полузить описание заказа по ID.")
     @GetMapping("/{id}")
-    public OrderDto getOrdersByID(@PathVariable Integer id) {
-        return orderMapper.entityToDto(orderService.getOrdersByID(id));
+    public OrderDto getOrdersByID(@PathVariable Long id) {
+        return orderMapper.toDto(orderService.getOne(id));
     }
 
     @Operation(description = "Создать заказ.")
     @PostMapping
     public OrderDto createOrder(@RequestBody OrderDto body) {  // 2. Взять фильм в аренду/купить
-        return orderMapper.entityToDto(orderService.createOrder(orderMapper.dtoToEntity(body)));
+        return orderMapper.toDto(orderService.create(orderMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить информацию о заказе.")
     @PutMapping("/{id}")
-    public OrderDto updateOrder(@PathVariable Integer id, @RequestBody OrderDto body) {
-        return orderMapper.entityToDto(orderService.updateOrder(id, orderMapper.dtoToEntity(body)));
+    public OrderDto updateOrder(@PathVariable Long id, @RequestBody OrderDto body) {
+        return orderMapper.toDto(orderService.update(id, orderMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить заказ.")
     @DeleteMapping("/{id}")
-    public void deleteOrderByID(@PathVariable Integer id){
-        orderService.deleteOrderByID(id);
+    public void deleteOrderByID(@PathVariable Long id) {
+        orderService.delete(id);
     }
 
 

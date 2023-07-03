@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequestMapping("/rent")
 public class MvcFilmRentInfoController {
-    private final Film
+//    private final Film
 
 }

@@ -4,20 +4,23 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "users",
+        uniqueConstraints = {@UniqueConstraint(name = "uniqueEmail", columnNames = "email"),
+                @UniqueConstraint(name = "uniqueLogin", columnNames = "login")
+        })
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
-    @Column(name = "id", nullable = false)
+@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
+public class UserEntity extends GenericEntity {
+/*    @Column(name = "id", nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;*/
 
     @Column(name = "login", nullable = false)
     private String login;
@@ -45,9 +48,6 @@ public class UserEntity {
 
     @Column(name = "email", nullable = false)
     private String email;
-
-    @Column(name = "created_when", nullable = false)
-    private LocalDateTime createdWhen;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false,

@@ -29,7 +29,7 @@ public class MvcDirectorsController {
                          @RequestParam(value = "size", defaultValue = "5") int pageSize,
                          Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "directorFIO"));
-        List<DirectorDto> result = directorService.getAllDirectors(pageRequest).stream().map(directorMapper::entityToDto).toList();
+        List<DirectorDto> result = directorService.getAllDirectors(pageRequest).stream().map(directorMapper::toDto).toList();
         model.addAttribute("directors", result);
 
         return "directors/viewAllDirectors";
@@ -56,7 +56,7 @@ public class MvcDirectorsController {
     public String createDirector(@ModelAttribute("directorForm") DirectorDto newDirector) {
         log.info("POST: Получен запрос на добавление нового Продюссера {}", newDirector.toString());
 
-        directorService.createDirector(directorMapper.dtoToEntity(newDirector));
+        directorService.create(directorMapper.toEntity(newDirector));
 
         return "redirect:/";
     }

@@ -41,40 +41,36 @@ public class UserController {
     @Operation(description = "Получить список всех пользователей.")
     @GetMapping
     public List<UserDto> getAllUsers() {
-        return userService.getAllUsers().stream()
-                .map(userMapper::entityToDto)
-                .toList();
+        return userMapper.toDtos(userService.listAll());
     }
 
     @Operation(description = "Полузить имя пользователя по ID.")
     @GetMapping("/{id}")
-    public UserDto getUserByID(@PathVariable Integer id) {
-        return userMapper.entityToDto(userService.getUserByID(id));
+    public UserDto getUserByID(@PathVariable Long id) {
+        return userMapper.toDto(userService.getOne(id));
     }
 
     @Operation(description = "Добавить пользователя.")
     @PostMapping
     public UserDto createUser(@RequestBody UserDto body) {
-        return userMapper.entityToDto(userService.createUser(userMapper.dtoToEntity(body)));
+        return userMapper.toDto(userService.create(userMapper.toEntity(body)));
     }
 
     @Operation(description = "Обновить информацию о пользователе.")
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Integer id, @RequestBody UserDto body) {
-        return userMapper.entityToDto(userService.updateUser(id, userMapper.dtoToEntity(body)));
+    public UserDto updateUser(@PathVariable Long id, @RequestBody UserDto body) {
+        return userMapper.toDto(userService.update(id, userMapper.toEntity(body)));
     }
 
     @Operation(description = "Удалить запись о пользователе.")
     @DeleteMapping("/{id}")
-    public void deleteUserByID(@PathVariable Integer id) {
-        userService.deleteUserByID(id);
+    public void deleteUserByID(@PathVariable Long id) {
+        userService.delete(id);
     }
 
     @GetMapping("/{id}/inuse")
-    public List<FilmDto> getFilmsInUse(@PathVariable(value = "id") Integer userId) {
-        return orderService.getFilmsInUse(userId).stream()
-                .map(filmMapper::entityToDto)
-                .toList();
+    public List<FilmDto> getFilmsInUse(@PathVariable(value = "id") Long userId) {
+        return filmMapper.toDtos(orderService.getFilmsInUse(userId));
     }
 
     @PostMapping("/login")

@@ -1,45 +1,45 @@
 package ru.homework.hometask07.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.homework.hometask07.controller.dto.UserDto;
+import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.UserRepository;
 import ru.homework.hometask07.dao.entity.UserEntity;
+import ru.homework.hometask07.mapper.GenericMapper;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class UserService {
+public class UserService extends GenericService<UserEntity, UserDto> {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public UserService(GenericRepository<UserEntity> repository,
+                       GenericMapper<UserEntity, UserDto> mapper,
+                       UserRepository userRepository,
+                       RoleService roleService,
+                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+        super(repository, mapper);
+        this.userRepository = userRepository;
+        this.roleService = roleService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public UserEntity getUserByID(Integer id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-    public UserEntity createUser(UserEntity body) {
-        body.setRole(roleService.getRoleByID(1));
+    @Override
+    public UserEntity create(UserEntity body) {
+        body.setRole(roleService.getRoleByID(1L));
         body.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
         body.setCreatedWhen(LocalDateTime.now());
         return userRepository.save(body);
     }
 
-    public UserEntity updateUser(Integer id, UserEntity body) {
-        body.setId(id);
-        return userRepository.save(body);
-    }
-
-    public void deleteUserByID(Integer id) {
-        userRepository.deleteById(id);
-    }
+//    public UserEntity update(Long id, UserEntity body) {
+//        body.setId(id);
+//        return userRepository.save(body);
+//    }
 
     public UserEntity getUserByLogin(final String login) {
         return userRepository.findByLogin(login).orElse(null);

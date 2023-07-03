@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Service
 public class OrderInfoService {
-    private final FilmService filmService;
+ /*   private final FilmService filmService;
 
     protected FilmRentInfoService(FilmRentInfoRepository filmRentInfoRepository,
                                   FilmRentInfoMapper filmRentInfoMapper, FilmService filmService) {
@@ -30,7 +30,7 @@ public class OrderInfoService {
         rentInfoDto.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
 
         return mapper.toDTO(repository.save(mapper.toEntity(rentInfoDto)));
-    }
+    }*/
 
 
 }

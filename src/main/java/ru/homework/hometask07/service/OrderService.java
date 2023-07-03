@@ -1,40 +1,48 @@
 package ru.homework.hometask07.service;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.homework.hometask07.controller.dto.OrderDto;
+import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.OrderRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.dao.entity.OrderEntity;
+import ru.homework.hometask07.mapper.GenericMapper;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class OrderService {
+public class OrderService extends GenericService<OrderEntity, OrderDto> {
     private final OrderRepository orderRepository;
 
-    public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
+    public OrderService(GenericRepository<OrderEntity> repository,
+                        GenericMapper<OrderEntity, OrderDto> mapper,
+                        OrderRepository orderRepository) {
+        super(repository, mapper);
+        this.orderRepository = orderRepository;
     }
 
-    public OrderEntity getOrdersByID(Integer id) {
-        return orderRepository.findById(id).orElse(null);
-    }
+//    public List<OrderEntity> listAll() {
+//        return orderRepository.findAll();
+//    }
 
-    public OrderEntity createOrder(OrderEntity body) {
-        return orderRepository.save(body);
-    }
+//    public OrderEntity getOne(Long id) {
+//        return orderRepository.findById(id).orElse(null);
+//    }
 
-    public OrderEntity updateOrder(Integer id, OrderEntity body) {
-        body.setId(id);
-        return orderRepository.save(body);
-    }
+//    public OrderEntity create(OrderEntity body) {
+//        return orderRepository.save(body);
+//    }
 
-    public void deleteOrderByID(Integer id) {
-        orderRepository.deleteById(id);
-    }
+//    public OrderEntity update(Long id, OrderEntity body) {
+//        body.setId(id);
+//        return orderRepository.save(body);
+//    }
 
-    public List<FilmEntity> getFilmsInUse(Integer userId) {
+//    public void delete(Long id) {
+//        orderRepository.deleteById(id);
+//    }
+
+    public List<FilmEntity> getFilmsInUse(Long userId) {
         return orderRepository.getFilmsInUseByUserId(userId);
     }
 }
