@@ -5,7 +5,7 @@ import ru.homework.hometask07.dao.entity.GenericEntity;
 
 import java.util.List;
 
-public interface Mapper <E extends GenericEntity, D extends GenericDto>{
+public interface Mapper<E extends GenericEntity, D extends GenericDto> {
     E toEntity(D dto);
 
     D toDto(E entity);

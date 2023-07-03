@@ -10,13 +10,14 @@ VALUES ('TANZANIA', 'COMEDY', '2020-06-20', 'Night runing', 'calculation pinch n
 
 INSERT INTO public.role (description, title)
 VALUES ('Admin', 'admin'),
-       ('Director', 'director'),
+       ('Manager', 'manager'),
        ('User', 'user');
 
-INSERT INTO public.users (address, birth_date, created_when, email, first_name, last_name, login, middle_name, password, phone, role_id)
-VALUES ('Savanna, Sunrise 29, r. 20', '1998-06-06', '2022-09-10', 'savann@mailiz.ru', 'Dima', 'Zimenovich', 'Dima', 'Borisovich', 'dima', '+79881234568', 3),
-       ('Novorechensk, Rechnaya 87, r.1',
-        '1985-06-12',
+INSERT INTO public.users (address, birth_date, created_when, email, first_name, last_name, login, middle_name, password,
+                          phone, role_id)
+VALUES ('Savanna, Sunrise 29, r. 20', '1998-06-06', '2022-09-10', 'savann@mailiz.ru', 'Dima', 'Zimenovich', 'Dima',
+        'Borisovich', 'dima', '+79881234568', 3),
+       ('Novorechensk, Rechnaya 87, r.1', '1985-06-12',
         '2015-06-03',
         'parahod@mailiz.ru',
         'Ruslan',
@@ -26,7 +27,8 @@ VALUES ('Savanna, Sunrise 29, r. 20', '1998-06-06', '2022-09-10', 'savann@mailiz
         'ruslan',
         '+79771234569',
         2),
-       ('Mnogorechensk, Pobedy 56, r.5', '2000-06-10', '2023-06-10', 'reka@mailiz.ru', 'Vasya', 'Skobar', 'Vasya', 'Petrovich', 'Vasya', '+79991234567', 1),
+       ('Mnogorechensk, Pobedy 56, r.5', '2000-06-10', '2023-06-10', 'reka@mailiz.ru', 'Vasya', 'Skobar', 'Vasya',
+        'Petrovich', 'Vasya', '+79991234567', 1),
        ('asdfasdfasdf',
         '2021-06-02',
         '2023-07-02 00:16:37.901756',

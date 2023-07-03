@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class FilmMapper extends GenericMapper<FilmEntity, FilmDto>{
+public class FilmMapper extends GenericMapper<FilmEntity, FilmDto> {
     private final DirectorRepository directorRepository;
 
     @Override

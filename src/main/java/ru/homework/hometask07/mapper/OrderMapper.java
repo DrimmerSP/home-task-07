@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class OrderMapper extends GenericMapper<OrderEntity, OrderDto>{
+public class OrderMapper extends GenericMapper<OrderEntity, OrderDto> {
     private final UserRepository userRepository;
     private final FilmRepository filmRepository;
 
