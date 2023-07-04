@@ -3,13 +3,18 @@ package ru.homework.hometask07.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.homework.hometask07.controller.dto.UserDto;
+import ru.homework.hometask07.dao.OrderRepository;
 import ru.homework.hometask07.dao.RoleRepository;
+import ru.homework.hometask07.dao.entity.OrderEntity;
 import ru.homework.hometask07.dao.entity.UserEntity;
+
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class UserMapper extends GenericMapper<UserEntity, UserDto> {
     private final RoleRepository roleRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public UserEntity toEntity(UserDto dto) {
@@ -23,6 +28,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setBirthDate(dto.getBirthDate());
         result.setPhone(dto.getPhone());
         result.setAddress(dto.getAddress());
+        result.setChangePasswordToken(dto.getChangePasswordToken());
         result.setEmail(dto.getEmail());
         result.setCreatedWhen(dto.getCreatedWhen());
         result.setCreatedBy(dto.getCreatedBy());
@@ -30,6 +36,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setDeletedBy(dto.getDeletedBy());
         result.setDeleted(dto.isDeleted());
         result.setRole(roleRepository.findById(dto.getRoleID()).orElse(null));
+        result.setOrders(dto.getOrderIds().stream().map(id -> orderRepository.findById(id).orElse(null)).collect(Collectors.toList()));
         return result;
     }
 
@@ -45,6 +52,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setBirthDate(entity.getBirthDate());
         result.setPhone(entity.getPhone());
         result.setAddress(entity.getAddress());
+        result.setChangePasswordToken(entity.getChangePasswordToken());
         result.setEmail(entity.getEmail());
         result.setCreatedWhen(entity.getCreatedWhen());
         result.setCreatedBy(entity.getCreatedBy());
@@ -52,6 +60,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setDeletedBy(entity.getDeletedBy());
         result.setDeleted(entity.isDeleted());
         result.setRoleID(entity.getRole().getId());
+        result.setOrderIds(entity.getOrders().stream().map(OrderEntity::getId).collect(Collectors.toList()));
         return result;
     }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,17 +31,20 @@ public class UserEntity extends GenericEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "middle_name")
+    @Column(name = "middle_name", nullable = false)
     private String middleName;
 
-    @Column(name = "birth_date")
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "change_password_token")
+    private String changePasswordToken;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -50,5 +54,6 @@ public class UserEntity extends GenericEntity {
             foreignKey = @ForeignKey(name = "FK_USERS_ROLES"))
     private RoleEntity role;
 
-
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<OrderEntity> orders;
 }

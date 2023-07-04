@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +21,8 @@ public class UserDto extends GenericDto {
     private LocalDate birthDate;
     private String phone;
     private String address;
+    private String changePasswordToken;
     private String email;
     private Long roleID;
+    private List<Long> orderIds;
 }
