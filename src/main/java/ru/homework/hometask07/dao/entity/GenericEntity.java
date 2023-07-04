@@ -1,6 +1,7 @@
 package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @MappedSuperclass
+@EqualsAndHashCode
 public abstract class GenericEntity {
     @Id
     @Column(name = "id", nullable = false)
