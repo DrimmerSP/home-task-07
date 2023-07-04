@@ -15,7 +15,6 @@ import java.util.List;
 @Tag(name = "Заказ", description = "Заказ:")
 @RequiredArgsConstructor
 public class OrderController {
-    //    private final OrderRepository orderRepository;
     private final OrderService orderService;
     private final OrderMapper orderMapper;
 

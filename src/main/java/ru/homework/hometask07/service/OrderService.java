@@ -8,6 +8,8 @@ import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.dao.entity.OrderEntity;
 import ru.homework.hometask07.mapper.GenericMapper;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,28 +23,25 @@ public class OrderService extends GenericService<OrderEntity, OrderDto> {
         this.orderRepository = orderRepository;
     }
 
-//    public List<OrderEntity> listAll() {
-//        return orderRepository.findAll();
-//    }
-
-//    public OrderEntity getOne(Long id) {
-//        return orderRepository.findById(id).orElse(null);
-//    }
-
-//    public OrderEntity create(OrderEntity body) {
-//        return orderRepository.save(body);
-//    }
-
-//    public OrderEntity update(Long id, OrderEntity body) {
-//        body.setId(id);
-//        return orderRepository.save(body);
-//    }
-
-//    public void delete(Long id) {
-//        orderRepository.deleteById(id);
-//    }
-
     public List<FilmEntity> getFilmsInUse(Long userId) {
         return orderRepository.getFilmsInUseByUserId(userId);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public OrderEntity rentFilm(OrderEntity orderEntity) {
+        if (orderEntity.getIsPurchase()) {
+            orderEntity.setRentFrom(null);
+            orderEntity.setRentTo(null);
+            orderEntity.setIsReturned(null);
+            return orderRepository.save(orderEntity);
+        }
+
+        orderEntity.setIsPurchase(null);
+        int DEFAULT_PERIOD = 14;
+        LocalDate rentTo = orderEntity.getRentTo() != null ?
+                orderEntity.getRentTo() :
+                orderEntity.getRentFrom().plus(Duration.ofDays(DEFAULT_PERIOD));
+        orderEntity.setRentTo(rentTo);
+        return orderRepository.save(orderEntity);
     }
 }

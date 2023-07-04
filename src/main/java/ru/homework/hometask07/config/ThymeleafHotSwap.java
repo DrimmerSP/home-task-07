@@ -10,7 +10,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 //https://stackoverflow.com/questions/40057057/spring-boot-and-thymeleaf-hot-swap-templates-and-resources-once-again
 @Configuration
-@Profile("dev")
+//@Profile("dev")
 public class ThymeleafHotSwap {
 
     private final ThymeleafProperties thymeleafProperties;

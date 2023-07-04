@@ -1,7 +1,5 @@
-/*
 package ru.homework.hometask07.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,36 +11,38 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.homework.hometask07.service.userdetails.CustomUserDetailsService;
 
-import java.util.List;
-
-import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
-import static ru.homework.hometask07.constants.UserRolesConstants.MANAGER;
+import static ru.homework.hometask07.constants.SecurityConstants.*;
+import static ru.homework.hometask07.constants.UserRolesConstants.*;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class WebSecurityConfig {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CustomUserDetailsService customUserDetailsService;
 
-    private final List<String> RESOURCES_WHITE_LIST = List.of(
+    public WebSecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder, CustomUserDetailsService customUserDetailsService) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.customUserDetailsService = customUserDetailsService;
+    }
+/*    private final List<String> RESOURCES_WHITE_LIST = List.of(
             "/resources/**",
             "/static/**",
             "/js/**",
             "/css/**",
             "/",
             "swagger-ui/**");
-    private final List<String> BOOKS_WHITE_LIST = List.of("/books");
+    private final List<String> FILMS_WHITE_LIST = List.of("/films");
 
-    private final List<String> BOOKS_PERMISIONS_LIST = List.of(
-            "/books/add",
-            "books/update",
-            "books/delete");
+    private final List<String> FILMS_PERMISIONS_LIST = List.of(
+            "/films/add",
+            "films/update",
+            "films/delete");
 
     private final List<String> USER_WHITE_LIST = List.of(
             "/login",
             "/users/registration",
-            "/users/remember-password/");
+            "/users/remember-password/");*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -52,9 +52,12 @@ public class WebSecurityConfig {
                 //Настройка http-запросов - кому/куда можно/нельзя
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(RESOURCES_WHITE_LIST.toArray(String[]::new)).permitAll()
-                        .requestMatchers(BOOKS_WHITE_LIST.toArray(String[]::new)).permitAll()
-                        .requestMatchers(USER_WHITE_LIST.toArray(String[]::new)).permitAll()
-                        .requestMatchers(BOOKS_PERMISIONS_LIST.toArray(String[]::new)).hasAnyRole(ADMIN.name(), MANAGER.name())
+                        .requestMatchers(FILMS_WHITE_LIST.toArray(String[]::new)).permitAll()
+                        .requestMatchers(USERS_WHITE_LIST.toArray(String[]::new)).permitAll()
+                        .requestMatchers(DIRECTORS_WHITE_LIST.toArray(String[]::new)).permitAll()
+                        .requestMatchers(FILMS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN.name(), MANAGER.name())
+                        .requestMatchers(DIRECTORS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(ADMIN.name(), MANAGER.name())
+                        .requestMatchers(USERS_PERMISSION_LIST.toArray(String[]::new)).hasAnyRole(USER.name(), MANAGER.name())
                         .anyRequest().authenticated()
                 )
                 //Настройка для входа в систему
@@ -82,4 +85,3 @@ public class WebSecurityConfig {
     }
 
 }
-*/

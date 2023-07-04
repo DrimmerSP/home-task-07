@@ -7,7 +7,7 @@ import ru.homework.hometask07.dao.entity.UserEntity;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends GenericRepository<UserEntity> {
 
     Optional<UserEntity> findByLogin(String login);
 

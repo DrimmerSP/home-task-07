@@ -41,15 +41,15 @@
                     <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
                 </form>
 
-                <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">
-                    <a class="nav-link active" style="float: right"
+                <div sec:authorize="isAuthenticated() && (hasRole('USER'))">
+                    <a class="nav-link active" aria-current="page" style="float: right"
                        href="'/films/view'">Мои фильмы</a>
-                    <!-- TODO добавить эдпоинт просмотра аредованныхкупленных фильмов-->
+                    <!-- TODO добавить эдпоинт просмотра арендованных/купленных фильмов конкретного пользователя-->
                 </div>
 
                 <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">
                     <a class="nav-link active" style="float: right"
-                       href="'/user/profile' + ${#authentication.getPrincipal().getUserId()}">Профиль</a>
+                       href="'/users/profile' + ${#authentication.getPrincipal().getUserId()}">Профиль</a>
                 </div>
 
                 <form class="d-flex" sec:authorize="!isAuthenticated()">

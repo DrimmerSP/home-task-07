@@ -7,9 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @Table(name = "role")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class RoleEntity {
     //    @Column(name = "filmId", nullable = false)
     @Id

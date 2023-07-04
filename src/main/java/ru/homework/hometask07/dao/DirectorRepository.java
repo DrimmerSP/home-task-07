@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
 
 @Repository
-public interface DirectorRepository extends JpaRepository<DirectorEntity, Long> {
+public interface DirectorRepository extends GenericRepository<DirectorEntity> {
 }

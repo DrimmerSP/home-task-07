@@ -3,6 +3,7 @@ package ru.homework.hometask07.controller.mvc;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,8 @@ public class MvcFilmController {
                          Model model) {
 
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
-        List<FilmDto> result = filmService.listAll(pageRequest).stream().map(filmMapper::toDto).toList(); // TODO: исправить на новую пагинацию.
-        model.addAttribute("films", result);
-
+        Page<FilmDto> films = filmService.listAll(pageRequest);
+        model.addAttribute("films", films);
         return "films/viewAllFilms";
 
 /*
@@ -54,7 +54,7 @@ public class MvcFilmController {
                               @ModelAttribute("filmSearchForm") FilmSearchDto filmSearchDto,
                               Model model) {
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
-//        model.addAttribute("films", filmService.searchFilm(filmSearchDto, pageRequest));
+        model.addAttribute("films", filmService.searchFilm(filmSearchDto, pageRequest));
         return "films/viewAllFilms";
     }
 
@@ -74,4 +74,11 @@ public class MvcFilmController {
         return "redirect:/films/view";
     }
     // Блок добавления ^^^^^^^^
+
+    @GetMapping("/{id}")
+    public String getOne(@PathVariable Long id,
+                         Model model) {
+        model.addAttribute("film", filmService.getOne(id));
+        return "films/viewFilm";
+    }
 }

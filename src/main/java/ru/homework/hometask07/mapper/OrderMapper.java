@@ -24,6 +24,7 @@ public class OrderMapper extends GenericMapper<OrderEntity, OrderDto> {
         result.setRentFrom(dto.getRentFrom());
         result.setRentTo(dto.getRentFrom().plus(dto.getRentPeriod()));
         result.setIsPurchase(dto.getPurchase());
+        result.setIsReturned(dto.getReturned());
         result.setUser(userRepository.findById(dto.getUserID()).orElse(null));
         result.setFilms(dto.getFilmIDs().stream()
                 .map(id -> filmRepository.findById(id).orElse(null)).collect(Collectors.toList()));
@@ -42,6 +43,7 @@ public class OrderMapper extends GenericMapper<OrderEntity, OrderDto> {
         result.setRentFrom(entity.getRentFrom());
         result.setRentPeriod(Duration.between(entity.getRentFrom(), entity.getRentTo()));
         result.setPurchase(entity.getIsPurchase());
+        result.setReturned(entity.getIsReturned());
         result.setUserID(entity.getUser().getId());
         result.setFilmIDs(entity.getFilms().stream()
                 .map(GenericEntity::getId).collect(Collectors.toList()));

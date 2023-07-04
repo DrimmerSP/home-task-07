@@ -1,3 +1,4 @@
+/*
 package ru.homework.hometask07.config.jwt;
 
 
@@ -65,3 +66,4 @@ public class JwtSecurityConfig {
 
 }
 
+*/
