@@ -47,6 +47,8 @@ public interface SecurityConstants {
 
     List<String> USERS_PERMISSION_LIST = List.of("/rent/film/*");
 
-    List<String> USERS_REST_WHITE_LIST = List.of("/users/auth");
+    List<String> USERS_REST_WHITE_LIST = List.of(
+            "/users/auth",
+            "/users/login");
 }
 
