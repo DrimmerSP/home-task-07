@@ -25,24 +25,6 @@ public class WebSecurityConfig {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.customUserDetailsService = customUserDetailsService;
     }
-/*    private final List<String> RESOURCES_WHITE_LIST = List.of(
-            "/resources/**",
-            "/static/**",
-            "/js/**",
-            "/css/**",
-            "/",
-            "swagger-ui/**");
-    private final List<String> FILMS_WHITE_LIST = List.of("/films");
-
-    private final List<String> FILMS_PERMISIONS_LIST = List.of(
-            "/films/add",
-            "films/update",
-            "films/delete");
-
-    private final List<String> USER_WHITE_LIST = List.of(
-            "/login",
-            "/users/registration",
-            "/users/remember-password/");*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {

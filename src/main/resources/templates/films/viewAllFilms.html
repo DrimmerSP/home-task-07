@@ -2,7 +2,6 @@
 <html lang="ru"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-
       layout:decorate="~{layout}">
 
 <head>
@@ -12,7 +11,6 @@
 
 <body>
 <div layout:fragment="content">
-
     <div>
         <hr class="hr"/>
         <h3>Поиск фильма</h3>
@@ -71,12 +69,12 @@
                 <thead>
                 <tr>
                     <th scope="col">[Название]</th>
-                    <!--<th scope="col">[Описание]</th>
+                    <th scope="col">[Описание]</th>
                     <th scope="col">[Жанр]</th>
                     <th scope="col">[Страна]</th>
                     <th scope="col">[Премьера]</th>
                     <th scope="col">[Режиссеры]</th>
-                    <th scope="col"></th>-->
+                    <th scope="col"></th>
                 </tr>
                 </thead>
 
@@ -85,7 +83,7 @@
                     <td th:text="${film.getTitle()}">
                         <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}" th:text="${film.getTitle()}"></a>
                     </td>
-                    <!--<td th:text="${film.getDescription()}"></td>
+                    <td th:text="${film.getDescription()}"></td>
                     <td th:text="${film.getGenre().getGenreTextDisplay()}"></td>
                     <td th:text="${film.getCountry().getCountryTextDisplay()}"></td>
                     <td th:text="${film.getPremierDate()}"></td>
@@ -93,87 +91,12 @@
                         <ul>
                             <li th:each="director : ${film.getDirectors().values()}" th:text="${director}"></li>
                         </ul>
-                    </td>-->
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!--<h1>Все фильмы</h1>
-    <div class="row">
-        <div class="col">
-            <td>
-                <a href="view/add"
-                   sec:authorize="isAuthenticated() && (hasRole('ADMIN'))"
-                   class="btn btn-secondary"
-                   role="button"
-                   style="float: right"
-                   aria-disabled="true">Добавить фильм</a>
-
-                <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
-                    <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}">Обновить</a>
-                    <a class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}">Удалить</a>
-                </div>
-                <a th:if="${film.getAmount() > 0}" sec:authorize="hasRole('USER')"
-                   class="btn btn-sm btn-outline-success"
-                   th:href="'/rent/film/' + ${film.id}">Арендовать фильм</a>
-            </td>
-        </div>
-    </div>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">[Название]</th>
-            <th scope="col">[Описание]</th>
-            <th scope="col">[Жанр]</th>
-            <th scope="col">[Страна]</th>
-            <th scope="col">[Премьера]</th>
-            <th scope="col">[Продюссер]</th>
-            &lt;!&ndash;            <th scope="col">Автор(ы)</th>&ndash;&gt;
-            <th scope="col"></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="film : ${films}">
-            <td th:text="${film.title()}">
-                &lt;!&ndash;                                <a th:href="'/books/' + ${book.getId()}" ></a>&ndash;&gt;
-                <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}"
-                   th:text="${film.getFilmTitle()}"></a>
-            </td>
-            <td th:text="${film.description()}"></td>
-            <td th:text="${film.genre().getGenreTextDisplay()}"></td>
-            <td th:text="${film.country().getCountryTextDisplay()}"></td>
-            <td th:classappend="${film.getAmount() <= 0} ? 'not-enough-film'"
-                th:text="${film.getAmount()} <= 0 ? 'Нет в наличии' : ${film.getAmount()}"></td>
-            <td th:text="${film.premierDate()}"></td>
-            <td th:text="${film.directorIDs()}"></td>
-            <td th:text="${film.getPublishDate()}"></td>
-            <td>
-                <ul>
-                    <li th:each="director : ${film.getDirectors()}" th:text="${director.getdirectorFIO()}"></li>
-                </ul>
-            </td>
-            &lt;!&ndash;                    <td>&ndash;&gt;
-            &lt;!&ndash;                        <a class="text-link text-blue" th:if="${book.getOnlineCopyPath()} != null" th:href="@{|/books/download?bookId=${book.id}|}">&ndash;&gt;
-            &lt;!&ndash;                            <span>Скачать книгу</span>&ndash;&gt;
-            &lt;!&ndash;                        </a>&ndash;&gt;
-            &lt;!&ndash;                    </td>&ndash;&gt;
-            &lt;!&ndash;<td>
-                <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
-                    <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}">Обновить</a>
-                    <a class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}">Удалить</a>
-                </div>
-                <a th:if="${film.getAmount() > 0}" sec:authorize="hasRole('USER')" class="btn btn-sm btn-outline-success"
-                   th:href="'/rent/film/' + ${film.id}">Арендовать фильм</a>
-            </td>&ndash;&gt;
-
-        </tr>
-        </tbody>
-    </table>-->
-
     <div>
         <nav aria-label="Pagination" th:if="${films.totalPages gt 0}">
             <ul class="pagination justify-content-center font-weight-bold">
