@@ -54,7 +54,7 @@
     <div class="mt-2">
       <!--      <form method="POST" th:object="${authorSearchForm}" th:action="@{/books/search/booksByAuthor}">-->
       <form>
-        <a sec:authorize="isAuthenticated() && !hasRole('USER')" class="btn btn-primary"
+        <a sec:authorize="isAuthenticated() && hasRole('USER')" class="btn btn-primary"
            th:href="'/users/registration/' + ${user.getId()}">Редактировать данные</a>
         <input type="hidden" name="userFIO"
                th:value="${user.getLogin()}">

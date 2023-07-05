@@ -36,7 +36,7 @@ public class UserService extends GenericService<UserEntity, UserDto> {
 
     @Override
     public UserEntity create(UserEntity body) {
-        body.setRole(roleService.getRoleByID(1L));
+        body.setRole(roleService.getRoleByID(3L));
         body.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
         body.setCreatedWhen(LocalDateTime.now());
         return repository.save(body);

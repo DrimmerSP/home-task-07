@@ -27,7 +27,6 @@ public class MvcFilmController {
     public String getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                          @RequestParam(value = "size", defaultValue = "5") int pageSize,
                          Model model) {
-
         PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "title"));
         Page<FilmDto> films = filmService.listAll(pageRequest);
         model.addAttribute("films", films);
