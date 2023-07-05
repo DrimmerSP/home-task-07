@@ -15,6 +15,7 @@ import ru.homework.hometask07.dao.entity.UserEntity;
 import ru.homework.hometask07.mapper.UserMapper;
 import ru.homework.hometask07.service.UserService;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
@@ -45,8 +46,9 @@ public class MvcUserController {
             return "registration";
         }
         userDTO.setRoleID(1L);   // заглушка  //
+        userDTO.setOrderIds(Collections.emptyList());
         userService.create(userMapper.toEntity(userDTO));
-        return "redirect:login";
+        return "redirect:/";
     }
 
     @GetMapping("/remember-password")
@@ -77,5 +79,12 @@ public class MvcUserController {
                                  @ModelAttribute("changePasswordForm") UserDto userDto) {
         userService.changePassword(uuid, userDto.getPassword());
         return "redirect:/login";
+    }
+
+    @PostMapping("/update")
+    public String updateUserDate(@PathParam(value = "userId") Long userId,
+                                 @ModelAttribute("userUpdateForm") UserDto userDto) {
+        userService.update(userId, userMapper.toEntity(userDto));
+        return "redirect:/";
     }
 }

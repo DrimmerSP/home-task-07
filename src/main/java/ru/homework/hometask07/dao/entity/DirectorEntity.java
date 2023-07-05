@@ -1,7 +1,10 @@
 package ru.homework.hometask07.dao.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "directors")
-@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
+@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1, initialValue = 10)
 public class DirectorEntity extends GenericEntity{
 
     @Column(name = "director_fio")

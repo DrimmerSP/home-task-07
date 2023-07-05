@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1)
+@SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1, initialValue = 10)
 public class FilmEntity extends GenericEntity {
     @Column(name = "title", nullable = false)
     private String title;
