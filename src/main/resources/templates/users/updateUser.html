@@ -8,34 +8,63 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h3 class="mt-3 mb-3" th:text="'Обновить данные ' + ${user.getAuthorFIO()}"></h3>
-    <form class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/users/view/update}" th:object="${userUpdateForm}">
+    <h3 class="mt-3 mb-3" th:text="'Обновить данные ' + ${user.getFirstName()} + ' ' + ${user.getMiddleName()} + ' ' + ${user.getLastName()}"></h3>
+    <form class="needs-validation" novalidate style="max-width: 50vw" method="POST" th:action="@{/users/registration/updater}" th:object="${userUpdateForm}">
         <input type="hidden" name="id"
                th:value="${user.getId()}">
         <div class="mt-3 row g-2">
             <div class="col-md">
                 <div class="form-floating">
                     <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
-                    <input name="authorFIO" th:value="${user.getAuthorFio()}" type="text" class="form-control" id="authorFio" placeholder="ФИО автора" required>
-                    <label for="authorFIO">ФИО автора</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
+                    <input name="firstName" th:value="${user.getFirstName()}" th:text="${user.getFirstName()}" type="text" class="form-control" id="firstName"
+                           placeholder="Имя" required>
+                    <label for="firstName">Имя</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
+                    <input name="middleName" th:value="${user.getMiddleName()}" th:text="${user.getMiddleName()}" type="text" class="form-control"
+                           id="middleName" placeholder="Отчество" required>
+                    <label for="middleName">Отчество</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <!--Название поля инпута должно строго соответствовать названию поля класса (DTO)-->
+                    <input name="lastName" th:value="${user.getLastName()}" th:text="${user.getLastName()}" type="text" class="form-control" id="lastName"
+                           placeholder="Фамилия" required>
+                    <label for="lastName">Фамилия</label>
                 </div>
             </div>
         </div>
         <div class="mt-3 row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <input name="birthDate" th:value="${user.getBirthDate()}" type="date" class="form-control" id="date" placeholder="Дата рождения" required>
+                    <input name="birthDate" th:value="${user.getBirthDate()}" th:text="${user.getBirthDate()}" type="date" class="form-control" id="date"
+                           placeholder="Дата рождения" required>
                     <label for="date">Дата рождения</label>
-                    <div class="invalid-feedback">Обязательное поле для заполнения</div>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <textarea name="description" th:value="${user.getDescription()}" th:text="${user.getDescription()}" type="text" class="form-control"
-                              id="description"
-                              placeholder="Описание"></textarea>
-                    <label for="description">Описание</label>
+                    <input name="phone" th:value="${user.getBirthDate()}" th:text="${user.getBirthDate()}" type="text" class="form-control" id="phone"
+                           placeholder="Телефон" required>
+                    <label for="phone">Телефон</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="address" th:value="${user.getAddress()}" th:text="${user.getAddress()}" type="text" class="form-control" id="address"
+                           placeholder="Адрес" required>
+                    <label for="address">Адрес</label>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating">
+                    <input name="email" th:value="${user.getEmail()}" th:text="${user.getEmail()}" type="text" class="form-control" id="email"
+                           placeholder="E-mail" required>
+                    <label for="email">E-mail</label>
                 </div>
             </div>
         </div>

@@ -37,7 +37,7 @@
                 </ul>
 
                 <form class="d-flex" sec:authorize="isAuthenticated()">
-                    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+                    <span th:text="  ${#authentication.getPrincipal().getUsername()}  "></span>
                 </form>
 
                 <!--                <div sec:authorize="isAuthenticated() && (hasRole('USER'))">-->
@@ -48,7 +48,7 @@
 
                 <div sec:authorize="isAuthenticated() && !hasRole('ADMIN')">
                     <a class="nav-link active" style="float: right"
-                       href="'/users/profile' + ${#authentication.getPrincipal().getUserId()}">Профиль</a>
+                       th:href="'/users/registration/profile/' + ${#authentication.getPrincipal().getUserId()}">Профиль</a>
                 </div>
 
                 <form class="d-flex" sec:authorize="!isAuthenticated()">

@@ -10,35 +10,54 @@
 <body>
 <form layout:fragment="content">
   <div class="mt-3">
-    <h3 th:text="'Информация о пользователе: ' + ${author.getAuthorFIO()}"></h3>
+    <h3 th:text="'Информация о пользователе: ' + ${user.getLogin()}"></h3>
     <form class="row g-1">
       <div class="mb-2 row">
-        <label for="authorFIO" class="col-sm-2 col-form-label no-border">ФИО:</label>
+        <label for="userFIO" class="col-sm-2 col-form-label no-border">ФИО:</label>
         <div class="col-sm-10">
-          <p th:text="${author.getAuthorFIO()}" class="form-control-plaintext" id="authorFio">
+          <p th:text="${user.getLogin()} + ' ' + ${user.getMiddleName()} + ' ' + ${user.getLastName()}" class="form-control-plaintext" id="userFio">
         </div>
       </div>
       <div class="mb-2 row">
         <label for="birthDate" class="col-sm-2 col-form-label">Дата рождения:</label>
         <div class="col-sm-10">
-          <p th:text="${author.getBirthDate()}" class="form-control-plaintext" id="birthDate">
+          <p th:text="${user.getBirthDate()}" class="form-control-plaintext" id="birthDate">
         </div>
       </div>
       <div class="mb-2 row">
-        <label for="description" class="col-sm-2 col-form-label">Описание:</label>
+        <label for="description" class="col-sm-2 col-form-label">E-mail:</label>
         <div class="col-sm-10">
-          <p th:text="${author.getDescription()}" class="form-control-plaintext" id="description">
+          <p th:text="${user.getEmail()}" class="form-control-plaintext" id="description">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <label for="phone" class="col-sm-2 col-form-label">Телефон:</label>
+        <div class="col-sm-10">
+          <p th:text="${user.getPhone()}" class="form-control-plaintext" id="phone">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <label for="address" class="col-sm-2 col-form-label">Адрес:</label>
+        <div class="col-sm-10">
+          <p th:text="${user.getAddress()}" class="form-control-plaintext" id="address">
+        </div>
+      </div>
+      <div class="mb-2 row">
+        <label for="role" class="col-sm-2 col-form-label">Роль:</label>
+        <div class="col-sm-10">
+          <p th:text="${role.getTitle()}" class="form-control-plaintext" id="role">
         </div>
       </div>
     </form>
     <hr class="hr"/>
     <div class="mt-2">
-      <form method="POST" th:object="${authorSearchForm}" th:action="@{/books/search/booksByAuthor}">
+      <!--      <form method="POST" th:object="${authorSearchForm}" th:action="@{/books/search/booksByAuthor}">-->
+      <form>
         <a sec:authorize="isAuthenticated() && !hasRole('USER')" class="btn btn-primary"
-           th:href="'/authors/add-book/' + ${author.getId()}">Добавить книгу</a>
-        <input type="hidden" name="authorFIO"
-               th:value="${author.getAuthorFIO()}">
-        <button type="submit" class="btn btn-success">Посмотреть книги</button>
+           th:href="'/users/registration/' + ${user.getId()}">Редактировать данные</a>
+        <input type="hidden" name="userFIO"
+               th:value="${user.getLogin()}">
+        <button type="submit" class="btn btn-success">Посмотреть заказы</button>
         <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
       </form>
     </div>
