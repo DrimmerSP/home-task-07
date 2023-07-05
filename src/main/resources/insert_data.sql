@@ -13,10 +13,10 @@ VALUES (1, 'SYSTEM', '2014-07-03 23:34:42.000000', NULL, NULL, FALSE, 'TANZANIA'
        (3, 'SYSTEM', '2019-08-05 23:37:40.000000', NULL, NULL, FALSE, 'VIETNAM', 'number composition flour spit',
         'DETECTIVE', '2023-05-10', 'Taiga');
 
-INSERT INTO public.role (description, title)
-VALUES ('Admin', 'Администратор'),
-       ('Manager', 'Менеджер'),
-       ('User', 'Пользователь');
+INSERT INTO public.role (id, description, title)
+VALUES (1, 'Admin', 'Администратор'),
+       (2, 'Manager', 'Менеджер'),
+       (3, 'User', 'Пользователь');
 
 INSERT INTO public.users (id,
                           created_by,
@@ -34,9 +34,7 @@ INSERT INTO public.users (id,
                           password,
                           phone,
                           role_id)
-VALUES (1,
-        'SYSTEM',
-        '2023-07-03 23:39:18.000000',
+VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
         NULL,
         NULL,
         FALSE,
@@ -100,12 +98,12 @@ VALUES (1,
         3);
 
 
-INSERT INTO public.orders (id, created_by, created_when, deleted_by, deleted_when, is_deleted, purchase, rent_from,
-                           rent_to, user_id)
-VALUES (1, 'SYSTEM', '2023-07-03 23:48:08.000000', NULL, NULL, FALSE, TRUE, '2023-06-10', '2023-06-20', 2),
-       (2, 'SYSTEM', '2023-07-03 23:49:13.000000', NULL, NULL, FALSE, TRUE, '2023-06-08', '2023-06-30', 1),
-       (3, 'SYSTEM', '2023-07-03 23:49:49.000000', NULL, NULL, FALSE, FALSE, '2023-06-18', '2023-06-19', 3),
-       (4, 'SYSTEM', '2023-07-03 23:50:21.000000', NULL, NULL, FALSE, TRUE, '2023-06-17', '2023-07-03', 2);
+INSERT INTO public.orders (id, created_by, created_when, deleted_by, deleted_when, is_deleted, is_purchase, is_return,
+                           rent_from, rent_to, user_id)
+VALUES (1, 'SYSTEM', '2023-07-03 23:48:08.000000', NULL, NULL, FALSE, TRUE, FALSE, '2023-06-10', '2023-06-20', 2),
+       (2, 'SYSTEM', '2023-07-03 23:49:13.000000', NULL, NULL, FALSE, TRUE, FALSE, '2023-06-08', '2023-06-30', 1),
+       (3, 'SYSTEM', '2023-07-03 23:49:49.000000', NULL, NULL, FALSE, FALSE, TRUE, '2023-06-18', '2023-06-19', 3),
+       (4, 'SYSTEM', '2023-07-03 23:50:21.000000', NULL, NULL, FALSE, TRUE, FALSE, '2023-06-17', '2023-07-03', 2);
 
 INSERT INTO public.film_directors (film_id, director_id)
 VALUES (1, 3),

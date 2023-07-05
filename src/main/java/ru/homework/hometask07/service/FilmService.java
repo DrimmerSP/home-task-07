@@ -7,22 +7,24 @@ import org.springframework.stereotype.Service;
 import ru.homework.hometask07.controller.dto.FilmDto;
 import ru.homework.hometask07.controller.dto.FilmSearchDto;
 import ru.homework.hometask07.dao.FilmRepository;
-import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.entity.FilmEntity;
-import ru.homework.hometask07.mapper.GenericMapper;
+import ru.homework.hometask07.mapper.FilmMapper;
 
 import java.util.List;
 
 @Service
 public class FilmService extends GenericService<FilmEntity, FilmDto> {
-    public final FilmRepository filmRepository;
 
-    public FilmService(GenericRepository<FilmEntity> repository,
-                       GenericMapper<FilmEntity, FilmDto> mapper,
-                       FilmRepository filmRepository) {
+    public FilmService(FilmRepository repository,
+                       FilmMapper mapper) {
         super(repository, mapper);
-        this.filmRepository = filmRepository;
     }
+
+//    public Page<FilmDto> getAllFilms(Pageable pageable) {
+//        Page<FilmEntity> objects = repository.findAll(pageable);
+//        List<FilmDto> result = mapper.toDtos(objects.getContent());
+//        return new PageImpl<>(result, pageable, objects.getTotalElements());
+//    }
 
     public Page<FilmDto> searchFilm(FilmSearchDto filmSearchDTO,
                                     Pageable pageRequest) {

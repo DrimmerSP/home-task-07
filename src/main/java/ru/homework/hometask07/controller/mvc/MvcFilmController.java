@@ -14,8 +14,6 @@ import ru.homework.hometask07.controller.dto.FilmSearchDto;
 import ru.homework.hometask07.mapper.FilmMapper;
 import ru.homework.hometask07.service.FilmService;
 
-import java.util.List;
-
 @Controller
 @Hidden
 @RequestMapping("/films/view")
@@ -25,7 +23,7 @@ public class MvcFilmController {
     private final FilmService filmService;
     private final FilmMapper filmMapper;
 
-    @GetMapping("")
+    @GetMapping
     public String getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                          @RequestParam(value = "size", defaultValue = "5") int pageSize,
                          Model model) {

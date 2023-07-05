@@ -16,11 +16,14 @@ public interface SecurityConstants {
 
     List<String> FILMS_WHITE_LIST = List.of(
             "/films",
-            "/films/search",
-            "/films/{id}");
+            "/films/{id}",
+            "/films/view",
+            "/films/view/search",
+            "/films/view/{id}");
 
     List<String> FILMS_PERMISSION_LIST = List.of(
             "/films/add",
+            "/films/view/add",
             "/films/update",
             "/films/delete");
 

@@ -3,6 +3,7 @@ package ru.homework.hometask07.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 import ru.homework.hometask07.controller.dto.GenericDto;
@@ -10,6 +11,7 @@ import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.entity.GenericEntity;
 import ru.homework.hometask07.mapper.GenericMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -61,5 +63,29 @@ public abstract class GenericService<E extends GenericEntity, D extends GenericD
 
     public void delete(final Long id) {
         repository.deleteById(id);
+    }
+
+    public void deleteSoft(final Long id) throws RuntimeException {
+        E obj = repository.findById(id).orElseThrow(() -> new NotFoundException("Объект не найден"));
+        markAsDeleted(obj);
+        repository.save(obj);
+    }
+
+    public void restore(final Long id) {
+        E obj = repository.findById(id).orElseThrow(() -> new NotFoundException("Объект не найден"));
+        unMarkAsDeleted(obj);
+        repository.save(obj);
+    }
+
+    public void markAsDeleted(GenericEntity genericEntity) {
+        genericEntity.setDeleted(true);
+        genericEntity.setDeletedWhen(LocalDateTime.now());
+        genericEntity.setDeletedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    public void unMarkAsDeleted(GenericEntity genericEntity) {
+        genericEntity.setDeleted(false);
+        genericEntity.setDeletedWhen(null);
+        genericEntity.setDeletedBy(null);
     }
 }

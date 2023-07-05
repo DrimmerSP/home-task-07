@@ -8,26 +8,20 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;*/
 
-import org.junit.jupiter.api.*;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.*;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.homework.hometask07.controller.dto.DirectorDto;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -44,7 +38,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(0)
+    @Order(1)
     @DisplayName("Тест по просмотру всех режиссёров через REST")
     void getAllDirectors() throws Exception {
         log.info("Тест по просмотру всех режиссёров через REST начат");
@@ -68,16 +62,30 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(1)
-    void getDirectorByID() {
+    @Order(2)
+    @DisplayName("Тест запроса режиссёра по ID, через REST")
+    void getDirectorByID() throws Exception {
+        log.info("Тест запроса режиссёра по ID, через REST - начат");
+        String result = mvc.perform(
+                        MockMvcRequestBuilders.get("/directors/2")
+                                .headers(super.headers)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
+        log.info("Тест запроса режиссёра по ID, через REST - закончен");
     }
 
     @Test
+    @Order(0)
     @DisplayName("Тест добавления режиссёра через REST")
-    void createDirector() throws Exception {
-        log.info("Тест по созданию режиссёра через REST начат");
-
+    void createDirector() throws Exception {                        //TODO
+        log.info("Тест по добавлению режиссёра через REST начат");
         DirectorDto directorDto = new DirectorDto("REST_TestDirectorFIO", 4, new ArrayList<>());
 
         DirectorDto result = objectMapper.readValue(
@@ -89,7 +97,6 @@ class DirectorRestControllerTest extends CommonTestREST {
                                         .accept(MediaType.APPLICATION_JSON)
                         )
                         .andExpect(status().is2xxSuccessful())
-//                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                         .andReturn()
                         .getResponse()
                         .getContentAsString(),
@@ -97,23 +104,22 @@ class DirectorRestControllerTest extends CommonTestREST {
         );
         createTestDirectorId = result.getId();
         log.info("{}", createTestDirectorId);
-        log.info("Тест по созданию режиссёра через REST закончен");
+        log.info("Тест по добавлению режиссёра через REST закончен");
     }
 
     @Test
+    @Order(5)
     @DisplayName("Тест по обновлению режиссёра через REST")
     void updateDirector() throws Exception {
         log.info("Тест по обновлению режиссёра через REST начат");
         DirectorDto existingTestDirector = objectMapper.readValue(
                 mvc.perform(
-                                MockMvcRequestBuilders.get("/directors/{id}")
+                                MockMvcRequestBuilders.get("/directors/2")
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .headers(super.headers)
-                                        .param("id", String.valueOf(createTestDirectorId))
                                         .accept(MediaType.APPLICATION_JSON)
                         )
                         .andExpect(status().is2xxSuccessful())
-//                        .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
                         .andReturn()
                         .getResponse()
                         .getContentAsString(),
@@ -123,11 +129,10 @@ class DirectorRestControllerTest extends CommonTestREST {
         existingTestDirector.setDirectorFIO("REST_TestDirectorFIO_UPDATED");
 
         mvc.perform(
-                        MockMvcRequestBuilders.put("/directors/{id}")
+                        MockMvcRequestBuilders.put("/directors/2")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .headers(super.headers)
                                 .content(asJsonString(existingTestDirector))
-                                .param("id", String.valueOf(createTestDirectorId))
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
@@ -135,15 +140,89 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    void deleteDirectorByID() {
+    @Order(6)
+    @DisplayName("Тест удаления режиссёра по ID через REST")
+    void deleteDirectorByID() throws Exception {
+        log.info("Тест удаления режиссёра по ID через REST - начат");
+        DirectorDto existingTestDirector = objectMapper.readValue(
+                mvc.perform(
+                                MockMvcRequestBuilders.get("/directors/2")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .headers(super.headers)
+                                        .accept(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().is2xxSuccessful())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString(),
+                DirectorDto.class
+        );
+        assertTrue(existingTestDirector.isDeleted());
+
+        mvc.perform(
+                        MockMvcRequestBuilders.delete("/directors/2")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .headers(super.headers)
+                                .accept(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+        log.info("Данные очищены!");
+
+        existingTestDirector = objectMapper.readValue(
+                mvc.perform(
+                                MockMvcRequestBuilders.get("/directors/2")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .headers(super.headers)
+                                        .accept(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().is2xxSuccessful())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString(),
+                DirectorDto.class
+        );
+        assertTrue(existingTestDirector.isDeleted());
+        log.info("Тест удаления режиссёра по ID через REST - закончен");
     }
 
     @Test
-    void addFilmToDirector() {
+    @Order(3)
+    @DisplayName("Тест добавления режиссёра к фильму через REST")
+    void addFilmToDirector() throws Exception {
+        log.info("Тест добавления режиссёра к фильму через REST - начат");
+        mvc.perform(
+                        MockMvcRequestBuilders.put("/directors/2/addfilm")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .headers(super.headers)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .param("filmId", String.valueOf(1L))
+                )
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+
+        log.info("Тест добавления режиссёра к фильму через REST - закончен");
     }
 
     @Test
-    void addBook() {
+    @Order(4)
+    @DisplayName("Тест добавления фильма к режиссёру через REST")
+    void addFilm() throws Exception {
+        log.info("Тест добавления фильма к режиссёру через REST - начат");
+        mvc.perform(
+                        MockMvcRequestBuilders.post("/directors/addFilm")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .headers(super.headers)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .param("filmId", String.valueOf(2L))
+                                .param("directorId", String.valueOf(1L))
+                )
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+
+        log.info("Тест добавления фильма к режиссёру через REST - закончен");
+
+
     }
 
     @Override

@@ -71,12 +71,12 @@
                 <thead>
                 <tr>
                     <th scope="col">[Название]</th>
-                    <!--<th scope="col">[Описание]</th>
+                    <th scope="col">[Описание]</th>
                     <th scope="col">[Жанр]</th>
                     <th scope="col">[Страна]</th>
                     <th scope="col">[Премьера]</th>
                     <th scope="col">[Режиссеры]</th>
-                    <th scope="col"></th>-->
+                    <th scope="col"></th>
                 </tr>
                 </thead>
 
@@ -86,7 +86,7 @@
                         <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}"
                            th:text="${film.getTitle()}"></a>
                     </td>
-                    <!--<td th:text="${film.getDescription()}"></td>
+                    <td th:text="${film.getDescription()}"></td>
                     <td th:text="${film.getGenre().getGenreTextDisplay()}"></td>
                     <td th:text="${film.getCountry().getCountryTextDisplay()}"></td>
                     <td th:text="${film.getPremierDate()}"></td>
@@ -94,7 +94,7 @@
                         <ul>
                             <li th:each="director : ${film.getDirectors().values()}" th:text="${director}"></li>
                         </ul>
-                    </td>-->
+                    </td>
                 </tr>
                 </tbody>
             </table>
