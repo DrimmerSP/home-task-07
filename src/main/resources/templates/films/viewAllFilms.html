@@ -8,6 +8,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Фильмы в каталоге</title>
+    <!--    <script th:inline="javascript">-->
+    <!--        let flag = [[${exception}]];//переменная-флаг в thymeleaf-->
+    <!--        window.onload = () => {-->
+    <!--            if (flag) new bootstrap.Modal(document.getElementById('deleteErrorModal'), {keyboard: false}).show()-->
+    <!--        };-->
+    <!--    </script>-->
 </head>
 
 <body>
@@ -59,7 +65,7 @@
             </div>
             <div class="col">
                 <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
-                   th:href="@{/films/add}"
+                   th:href="@{/films/view/add}"
                    class="btn btn-success"
                    role="button"
                    style="float: right"
@@ -82,8 +88,8 @@
 
                 <tbody>
                 <tr th:each="film : ${films}">
-                    <td th:text="${film.getTitle()}">
-                        <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}"
+                    <td>
+                        <a class="text-link text-blue" th:href="'/films/view/' + ${film.getId()}"
                            th:text="${film.getTitle()}"></a>
                     </td>
                     <td th:text="${film.getDescription()}"></td>
@@ -95,86 +101,45 @@
                             <li th:each="director : ${film.getDirectors().values()}" th:text="${director}"></li>
                         </ul>
                     </td>
+                    <td>
+                        <!--                        <a class="text-link text-blue" th:if="${book.getOnlineCopyPath()} != null" th:href="@{|/books/download?bookId=${book.id}|}">-->
+                        <!--                            <span>Скачать книгу</span>-->
+                        <!--                        </a>-->
+                    </td>
+                    <td>
+                        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('ЬФ'))">
+                            <a class="btn btn-sm btn-outline-success" th:href="'/films/view/update/' + ${film.getId()}">Обновить</a>
+                            <a th:if="${!film.isDeleted()}" class="btn btn-sm btn-outline-danger"
+                               th:href="'/film/view/delete/' + ${film.getId()}"
+                               onclick="return confirm('Вы действительно хотите удалить книгу?')">Удалить</a>
+                            <a th:if="${film.isDeleted()}" class="btn btn-sm btn-outline-warning"
+                               th:href="'/films/view/restore/' + ${film.getId()}">Восстановить</a>
+                        </div>
+                        <a sec:authorize="!hasRole('ADMIN')" class="btn btn-sm btn-outline-success"
+                           th:href="'/rent/films/' + ${film.getId()}">Купить фильм</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!--<h1>Все фильмы</h1>
-    <div class="row">
-        <div class="col">
-            <td>
-                <a href="view/add"
-                   sec:authorize="isAuthenticated() && (hasRole('ADMIN'))"
-                   class="btn btn-secondary"
-                   role="button"
-                   style="float: right"
-                   aria-disabled="true">Добавить фильм</a>
-
-                <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
-                    <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}">Обновить</a>
-                    <a class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}">Удалить</a>
-                </div>
-                <a th:if="${film.getAmount() > 0}" sec:authorize="hasRole('USER')"
-                   class="btn btn-sm btn-outline-success"
-                   th:href="'/rent/film/' + ${film.id}">Арендовать фильм</a>
-            </td>
-        </div>
-    </div>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">[Название]</th>
-            <th scope="col">[Описание]</th>
-            <th scope="col">[Жанр]</th>
-            <th scope="col">[Страна]</th>
-            <th scope="col">[Премьера]</th>
-            <th scope="col">[Продюссер]</th>
-            &lt;!&ndash;            <th scope="col">Автор(ы)</th>&ndash;&gt;
-            <th scope="col"></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="film : ${films}">
-            <td th:text="${film.title()}">
-                &lt;!&ndash;                                <a th:href="'/books/' + ${book.getId()}" ></a>&ndash;&gt;
-                <a class="text-link text-blue" th:href="'/films/' + ${film.getId()}"
-                   th:text="${film.getFilmTitle()}"></a>
-            </td>
-            <td th:text="${film.description()}"></td>
-            <td th:text="${film.genre().getGenreTextDisplay()}"></td>
-            <td th:text="${film.country().getCountryTextDisplay()}"></td>
-            <td th:classappend="${film.getAmount() <= 0} ? 'not-enough-film'"
-                th:text="${film.getAmount()} <= 0 ? 'Нет в наличии' : ${film.getAmount()}"></td>
-            <td th:text="${film.premierDate()}"></td>
-            <td th:text="${film.directorIDs()}"></td>
-            <td th:text="${film.getPublishDate()}"></td>
-            <td>
-                <ul>
-                    <li th:each="director : ${film.getDirectors()}" th:text="${director.getdirectorFIO()}"></li>
-                </ul>
-            </td>
-            &lt;!&ndash;                    <td>&ndash;&gt;
-            &lt;!&ndash;                        <a class="text-link text-blue" th:if="${book.getOnlineCopyPath()} != null" th:href="@{|/books/download?bookId=${book.id}|}">&ndash;&gt;
-            &lt;!&ndash;                            <span>Скачать книгу</span>&ndash;&gt;
-            &lt;!&ndash;                        </a>&ndash;&gt;
-            &lt;!&ndash;                    </td>&ndash;&gt;
-            &lt;!&ndash;<td>
-                <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))">
-                    <a class="btn btn-sm btn-outline-success" th:href="'/films/update/' + ${film.id}">Обновить</a>
-                    <a class="btn btn-sm btn-outline-danger" th:href="'/films/delete/' + ${film.id}">Удалить</a>
-                </div>
-                <a th:if="${film.getAmount() > 0}" sec:authorize="hasRole('USER')" class="btn btn-sm btn-outline-success"
-                   th:href="'/rent/film/' + ${film.id}">Арендовать фильм</a>
-            </td>&ndash;&gt;
-
-        </tr>
-        </tbody>
-    </table>-->
-
+    <!--        &lt;!&ndash;Модальное окно для ошибок старт&ndash;&gt;-->
+    <!--        <div th:if="${exception != null && exception != ''}" class="modal fade" id="deleteErrorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+    <!--            <div class="modal-dialog">-->
+    <!--                <div class="modal-content">-->
+    <!--                    <div class="modal-header">-->
+    <!--                        <h5 class="modal-title" id="exampleModalLabel">Ошибка</h5>-->
+    <!--                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+    <!--                    </div>-->
+    <!--                    <div class="modal-body" th:text="${exception}">-->
+    <!--                    </div>-->
+    <!--                    <div class="modal-footer">-->
+    <!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash;Модальное окно для ошибок конец&ndash;&gt;-->
     <div>
         <nav aria-label="Pagination" th:if="${films.totalPages gt 0}">
             <ul class="pagination justify-content-center font-weight-bold">

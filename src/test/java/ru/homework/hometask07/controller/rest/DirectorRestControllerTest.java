@@ -38,7 +38,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(1)
+//    @Order(1)
     @DisplayName("Тест по просмотру всех режиссёров через REST")
     void getAllDirectors() throws Exception {
         log.info("Тест по просмотру всех режиссёров через REST начат");
@@ -62,7 +62,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(2)
+//    @Order(2)
     @DisplayName("Тест запроса режиссёра по ID, через REST")
     void getDirectorByID() throws Exception {
         log.info("Тест запроса режиссёра по ID, через REST - начат");
@@ -82,7 +82,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(0)
+//    @Order(0)
     @DisplayName("Тест добавления режиссёра через REST")
     void createDirector() throws Exception {                        //TODO
         log.info("Тест по добавлению режиссёра через REST начат");
@@ -90,7 +90,7 @@ class DirectorRestControllerTest extends CommonTestREST {
 
         DirectorDto result = objectMapper.readValue(
                 mvc.perform(
-                                MockMvcRequestBuilders.post("/directors")
+                                MockMvcRequestBuilders.post("/directors") //, directorDto
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .headers(super.headers)
                                         .content(asJsonString(directorDto))
@@ -108,7 +108,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(5)
+//    @Order(5)
     @DisplayName("Тест по обновлению режиссёра через REST")
     void updateDirector() throws Exception {
         log.info("Тест по обновлению режиссёра через REST начат");
@@ -140,7 +140,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(6)
+//    @Order(6)
     @DisplayName("Тест удаления режиссёра по ID через REST")
     void deleteDirectorByID() throws Exception {
         log.info("Тест удаления режиссёра по ID через REST - начат");
@@ -187,7 +187,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(3)
+//    @Order(3)
     @DisplayName("Тест добавления режиссёра к фильму через REST")
     void addFilmToDirector() throws Exception {
         log.info("Тест добавления режиссёра к фильму через REST - начат");
@@ -205,7 +205,7 @@ class DirectorRestControllerTest extends CommonTestREST {
     }
 
     @Test
-    @Order(4)
+//    @Order(4)
     @DisplayName("Тест добавления фильма к режиссёру через REST")
     void addFilm() throws Exception {
         log.info("Тест добавления фильма к режиссёру через REST - начат");

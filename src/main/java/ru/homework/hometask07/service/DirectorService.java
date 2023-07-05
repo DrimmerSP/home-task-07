@@ -5,11 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.controller.dto.DirectorDto;
 import ru.homework.hometask07.dao.DirectorRepository;
-import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.entity.DirectorEntity;
 import ru.homework.hometask07.dao.entity.FilmEntity;
 import ru.homework.hometask07.mapper.DirectorMapper;
-import ru.homework.hometask07.mapper.GenericMapper;
 
 @Service
 public class DirectorService extends GenericService<DirectorEntity, DirectorDto> {

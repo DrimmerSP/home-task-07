@@ -76,7 +76,7 @@ public class MvcFilmController {
     @GetMapping("/{id}")
     public String getOne(@PathVariable Long id,
                          Model model) {
-        model.addAttribute("film", filmService.getOne(id));
+        model.addAttribute("film", filmMapper.toDto(filmService.getOne(id)));
         return "films/viewFilm";
     }
 }
