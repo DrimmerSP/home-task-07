@@ -8,10 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.homework.hometask07.constants.MailConstants;
 import ru.homework.hometask07.controller.dto.UserDto;
-import ru.homework.hometask07.dao.GenericRepository;
 import ru.homework.hometask07.dao.UserRepository;
 import ru.homework.hometask07.dao.entity.UserEntity;
-import ru.homework.hometask07.mapper.GenericMapper;
+import ru.homework.hometask07.mapper.UserMapper;
 import ru.homework.hometask07.utils.MailUtils;
 
 import java.time.LocalDateTime;
@@ -20,19 +19,16 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class UserService extends GenericService<UserEntity, UserDto> {
-    private final UserRepository userRepository;
     private final RoleService roleService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JavaMailSender javaMailSender;
 
-    public UserService(GenericRepository<UserEntity> repository,
-                       GenericMapper<UserEntity, UserDto> mapper,
-                       UserRepository userRepository,
+    public UserService(UserRepository repository,
+                       UserMapper mapper,
                        RoleService roleService,
                        BCryptPasswordEncoder bCryptPasswordEncoder,
                        JavaMailSender javaMailSender) {
         super(repository, mapper);
-        this.userRepository = userRepository;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.javaMailSender = javaMailSender;
@@ -43,20 +39,15 @@ public class UserService extends GenericService<UserEntity, UserDto> {
         body.setRole(roleService.getRoleByID(1L));
         body.setPassword(bCryptPasswordEncoder.encode(body.getPassword()));
         body.setCreatedWhen(LocalDateTime.now());
-        return userRepository.save(body);
-    }
-
-    public UserEntity update(Long id, UserEntity body) {
-        body.setId(id);
-        return userRepository.save(body);
+        return repository.save(body);
     }
 
     public UserEntity getUserByLogin(final String login) {
-        return userRepository.findByLogin(login).orElse(null);
+        return ((UserRepository) repository).findByLogin(login).orElse(null);
     }
 
     public UserEntity getUserByEmail(final String email) {
-        return userRepository.findByEmail(email).orElse(null);
+        return ((UserRepository) repository).findByEmail(email).orElse(null);
     }
 
     public boolean checkPassword(String password, UserDetails foundUser) {
