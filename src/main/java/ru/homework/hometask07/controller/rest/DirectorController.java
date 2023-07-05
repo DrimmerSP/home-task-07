@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "Bearer Authentication")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class DirectorController {
     private final DirectorService directorService;
     private final DirectorMapper directorMapper;
@@ -53,7 +55,7 @@ public class DirectorController {
     @Operation(description = "Удалить запись о продюссере.")
     @DeleteMapping("/{id}")
     public void deleteDirectorByID(@PathVariable Long id) {
-        directorService.delete(id);
+        directorService.deleteSoft(id);
     }
 
     @PutMapping("/{id}/addfilm")
@@ -63,8 +65,9 @@ public class DirectorController {
 
     @Operation(description = "Добавить фильм к продюссеру")
     @RequestMapping(value = "/addFilm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DirectorDto> addBook(@RequestParam(value = "filmId") Long filmId,
+    public ResponseEntity<DirectorDto> addFilm(@RequestParam(value = "filmId") Long filmId,
                                                @RequestParam(value = "directorId") Long directorId) {
+        log.info("Вызван метод Добавить фильм к продюссеру с параметрами FilmId: {}, DirectorId: {}", filmId, directorId);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(directorMapper.toDto(directorService.addDirectorToFilm(filmId, directorId)));
     }
