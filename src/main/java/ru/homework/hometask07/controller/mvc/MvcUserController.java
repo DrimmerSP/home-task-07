@@ -3,6 +3,9 @@ package ru.homework.hometask07.controller.mvc;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -110,5 +113,27 @@ public class MvcUserController {
         model.addAttribute("user", userMapper.toDto(userEntity));
         model.addAttribute("role", roleMapper.toDto(userEntity.getRole()));
         return "users/viewUser";
+    }
+
+    @GetMapping("/viewall")
+    public String getAll(@RequestParam(value = "page", defaultValue = "1") int page,
+                         @RequestParam(value = "size", defaultValue = "5") int pageSize,
+                         Model model) {
+        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "login"));
+        Page<UserDto> users = userService.listAll(pageRequest);
+        model.addAttribute("users", users);
+        return "users/viewAllUsers";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteSoft(id);
+        return "redirect:/users/registration/viewall";
+    }
+
+    @GetMapping("/restore/{id}")
+    public String restoreUser(@PathVariable Long id) {
+        userService.restore(id);
+        return "redirect:/users/registration/viewall";
     }
 }

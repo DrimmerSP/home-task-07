@@ -23,9 +23,14 @@
                         <a class="nav-link active" aria-current="page" href="/films/view/add">[ Добавить Фильм ]</a>
                     </li>
 
-                    <!-- Добавил блок кнопки добавления продюссера -->
+                    <!-- Добавил блок кнопки добавления режиссера -->
                     <li sec:authorize="isAuthenticated() && (hasRole('ADMIN'))" class="nav-link">
                         <a class="nav-link active" aria-current="page" href="/directors/view/add">[ Добавить режиссера ]</a>
+                    </li>
+
+                    <!-- Добавил блок кнопки просмотра пользователей -->
+                    <li sec:authorize="isAuthenticated() && (hasRole('ADMIN'))" class="nav-link">
+                        <a class="nav-link active" aria-current="page" href="/users/registration/viewall">[ Список пользователей ]</a>
                     </li>
 
                     <li sec:authorize="isAuthenticated() && (hasRole('USER'))" class="nav-link">
