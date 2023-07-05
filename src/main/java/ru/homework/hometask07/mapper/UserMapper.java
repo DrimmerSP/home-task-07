@@ -3,6 +3,7 @@ package ru.homework.hometask07.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.homework.hometask07.controller.dto.UserDto;
+import ru.homework.hometask07.controller.dto.UserUpdateDto;
 import ru.homework.hometask07.dao.OrderRepository;
 import ru.homework.hometask07.dao.RoleRepository;
 import ru.homework.hometask07.dao.entity.OrderEntity;
@@ -62,5 +63,28 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setRoleID(entity.getRole().getId());
         result.setOrderIds(entity.getOrders().stream().map(OrderEntity::getId).collect(Collectors.toList()));
         return result;
+    }
+
+    public UserEntity fromUpdateDtoToEntity(UserEntity entity, UserUpdateDto dto) {
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
+        entity.setMiddleName(dto.getMiddleName());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setPhone(dto.getPhone());
+        entity.setAddress(dto.getAddress());
+        entity.setEmail(dto.getEmail());
+        return entity;
+    }
+
+    public UserUpdateDto fromEntityToUpdateDto(UserEntity entity) {
+        return new UserUpdateDto()
+                .setId(entity.getId())
+                .setFirstName(entity.getFirstName())
+                .setLastName(entity.getLastName())
+                .setMiddleName(entity.getMiddleName())
+                .setBirthDate(entity.getBirthDate())
+                .setPhone(entity.getPhone())
+                .setAddress(entity.getAddress())
+                .setEmail(entity.getEmail());
     }
 }

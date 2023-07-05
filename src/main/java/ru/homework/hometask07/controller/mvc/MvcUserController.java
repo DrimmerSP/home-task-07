@@ -6,12 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.homework.hometask07.controller.dto.UserDto;
+import ru.homework.hometask07.controller.dto.UserUpdateDto;
 import ru.homework.hometask07.dao.entity.UserEntity;
+import ru.homework.hometask07.mapper.RoleMapper;
 import ru.homework.hometask07.mapper.UserMapper;
 import ru.homework.hometask07.service.UserService;
 
@@ -27,6 +26,7 @@ import static ru.homework.hometask07.constants.UserRolesConstants.ADMIN;
 public class MvcUserController {
     private final UserService userService;
     private final UserMapper userMapper;
+    private final RoleMapper roleMapper;
 
     @GetMapping("")
     public String registration(Model model) {
@@ -48,6 +48,21 @@ public class MvcUserController {
         userDTO.setRoleID(1L);   // заглушка  //
         userDTO.setOrderIds(Collections.emptyList());
         userService.create(userMapper.toEntity(userDTO));
+        return "redirect:/";
+    }
+
+    @GetMapping("/{id}")
+    public String userDataUpdate(Model model, @PathVariable Long id) {
+        UserEntity entity = userService.getOne(id);
+        model.addAttribute("user", userMapper.fromEntityToUpdateDto(entity));
+        model.addAttribute("userId", id);
+        return "users/updateUser";
+    }
+
+    @PostMapping("/updater")
+    public String userUpdateData(@ModelAttribute("userUpdateForm") UserUpdateDto updateDto) {
+        UserEntity userEntity = userService.getOne(updateDto.getId());
+        userService.create(userMapper.fromUpdateDtoToEntity(userEntity, updateDto));
         return "redirect:/";
     }
 
@@ -86,5 +101,14 @@ public class MvcUserController {
                                  @ModelAttribute("userUpdateForm") UserDto userDto) {
         userService.update(userId, userMapper.toEntity(userDto));
         return "redirect:/";
+    }
+
+    @GetMapping("/profile/{id}")
+    public String userProfile(@PathVariable(value = "id") Long userId,
+                              Model model) {
+        UserEntity userEntity = userService.getOne(userId);
+        model.addAttribute("user", userMapper.toDto(userEntity));
+        model.addAttribute("role", roleMapper.toDto(userEntity.getRole()));
+        return "users/viewUser";
     }
 }
