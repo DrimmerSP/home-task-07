@@ -2,7 +2,7 @@ package ru.homework.hometask07.controller.dto;
 
 import lombok.*;
 
-import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -12,5 +12,6 @@ import java.util.List;
 public class DirectorDto extends GenericDto {
     private String directorFIO;
     private Integer position;
-    private List<Long> filmIDs;
+    private String description;
+    private Map<Long, String> films;
 }

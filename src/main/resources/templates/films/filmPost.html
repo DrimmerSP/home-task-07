@@ -43,6 +43,11 @@
                         th:value="${genre}" th:text="${genre.getGenreTextDisplay()}"></option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Цена</label>
+            <input name="price" type="number" class="form-control" id="price" placeholder="Цена фильма" value="350" required>
+            <div class="invalid-feedback">Обязательное поле для заполнения</div>
+        </div>
         <button type="submit" class="btn btn-primary">Добавить</button>
         <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
     </form>

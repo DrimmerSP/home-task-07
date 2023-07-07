@@ -29,6 +29,8 @@ public class FilmEntity extends GenericEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "genre")
     private Genre genre;
+    @Column(name = "price")
+    private Long price;
     @ManyToMany
     @JoinTable(
             name = "film_directors",

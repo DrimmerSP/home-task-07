@@ -8,8 +8,8 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h3 class="mt-3 mb-3" th:text="'Аренда фильма ' + ${film.getFilmTitle()}"></h3>
-    <form method="POST" th:action="@{/rent/film}" th:object="${rentFilmForm}">
+    <h3 class="mt-3 mb-3" th:text="'Купить фильм ' + ${film.getTitle()}"></h3>
+    <form method="POST" th:action="@{/rent/film}" th:object="${orderInfo}">
         <input type="hidden" name="filmId"
                th:value="${film.getId()}">
         <div class="mt-3 row g-2">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="mt-3 row g-2">
-            <button type="submit" class="btn btn-primary">Арендовать</button>
+            <button type="submit" class="btn btn-primary">Купить</button>
             <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>
         </div>
     </form>

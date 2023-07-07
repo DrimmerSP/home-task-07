@@ -62,7 +62,7 @@
                 <h2>Все фильмы</h2>
             </div>
             <div class="col">
-                <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
+                <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('USER'))"
                    th:href="@{/films/view/add}"
                    class="btn btn-success"
                    role="button"
@@ -80,6 +80,7 @@
                     <th scope="col">[Страна]</th>
                     <th scope="col">[Премьера]</th>
                     <th scope="col">[Режиссеры]</th>
+                    <th scope="col">[Цена]</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -98,20 +99,21 @@
                             <li th:each="director : ${film.getDirectors().values()}" th:text="${director}"></li>
                         </ul>
                     </td>
+                    <td th:text="${film.getPrice()} + 'р.'"></td>
                     <td>
                         <!--                        <a class="text-link text-blue" th:if="${book.getOnlineCopyPath()} != null" th:href="@{|/books/download?bookId=${book.id}|}">-->
                         <!--                            <span>Скачать книгу</span>-->
                         <!--                        </a>-->
                     </td>
                     <td>
-                        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('ЬФ'))">
+                        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('USER'))">
                             <a class="btn btn-sm btn-outline-success" th:href="'/films/view/update/' + ${film.getId()}">Обновить</a>
                             <a th:if="${!film.isDeleted()}" class="btn btn-sm btn-outline-danger" th:href="'/film/view/delete/' + ${film.getId()}"
                                onclick="return confirm('Вы действительно хотите удалить книгу?')">Удалить</a>
                             <a th:if="${film.isDeleted()}" class="btn btn-sm btn-outline-warning" th:href="'/films/view/restore/' + ${film.getId()}">Восстановить</a>
                         </div>
                         <a sec:authorize="!hasRole('ADMIN')" class="btn btn-sm btn-outline-success"
-                           th:href="'/rent/films/' + ${film.getId()}">Купить фильм</a>
+                           th:href="'/rent/film/' + ${film.getId()}">Купить фильм</a>
                     </td>
                 </tr>
                 </tbody>

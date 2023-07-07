@@ -16,13 +16,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "directors")
 @SequenceGenerator(name = "default_generator", sequenceName = "users_seq", allocationSize = 1, initialValue = 10)
-public class DirectorEntity extends GenericEntity{
+public class DirectorEntity extends GenericEntity {
 
     @Column(name = "director_fio")
     private String directorFIO;
 
     @Column(name = "position")
     private Integer position;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToMany
     @JoinTable(

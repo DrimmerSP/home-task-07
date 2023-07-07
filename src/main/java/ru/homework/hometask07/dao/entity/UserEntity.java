@@ -49,6 +49,9 @@ public class UserEntity extends GenericEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "money_amount")
+    private Long moneyAmount;
+
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false,
             foreignKey = @ForeignKey(name = "FK_USERS_ROLES"))

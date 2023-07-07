@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.homework.hometask07.controller.dto.UserAddCashDto;
 import ru.homework.hometask07.controller.dto.UserDto;
 import ru.homework.hometask07.controller.dto.UserUpdateDto;
 import ru.homework.hometask07.dao.entity.UserEntity;
@@ -135,5 +136,24 @@ public class MvcUserController {
     public String restoreUser(@PathVariable Long id) {
         userService.restore(id);
         return "redirect:/users/registration/viewall";
+    }
+
+    @GetMapping("/cash-update/{id}")
+    public String getUpdateCash(@PathVariable Long id, Model model) {
+        UserEntity user = userService.getOne(id);
+        model.addAttribute("userForm", new UserAddCashDto()
+                .setId(user.getId())
+                .setLogin(user.getLogin())
+                .setCash(user.getMoneyAmount()));
+        return "users/updateCash";
+    }
+
+    @PostMapping("/cash-update")
+    public String postUpdateCash(@ModelAttribute("userForm") UserAddCashDto dto) {
+        log.info("===POST: /users/registration/cash-update with body {}", dto);
+        UserEntity user = userService.getOne(dto.getId());
+        user.setMoneyAmount(user.getMoneyAmount() + dto.getUpdateCashValue());
+        userService.update(user);
+        return "redirect:/users/registration/profile/%s".formatted(dto.getId());
     }
 }

@@ -31,18 +31,16 @@ public class MvcFilmController {
         Page<FilmDto> films = filmService.listAll(pageRequest);
         model.addAttribute("films", films);
         return "films/viewAllFilms";
-
-/*
-        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        Page<AuthorDTO> result;
-        if (ADMIN.equalsIgnoreCase(userName)) {
-            result = authorService.listAll(pageRequest);
-        }
-        else {
-            result = authorService.listAllNotDeleted(pageRequest);
-        }
-        model.addAttribute("authors", result);*/
+//        PageRequest pageRequest = PageRequest.of(page - 1, pageSize, Sort.by(Sort.Direction.ASC, "authorFIO"));
+//        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+//        Page<AuthorDTO> result;
+//        if (ADMIN.equalsIgnoreCase(userName)) {
+//            result = authorService.listAll(pageRequest);
+//        }
+//        else {
+//            result = authorService.listAllNotDeleted(pageRequest);
+//        }
+//        model.addAttribute("authors", result);
     }
 
     @PostMapping("/search")
