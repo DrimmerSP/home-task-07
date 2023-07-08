@@ -31,6 +31,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setAddress(dto.getAddress());
         result.setChangePasswordToken(dto.getChangePasswordToken());
         result.setEmail(dto.getEmail());
+        result.setMoneyAmount(dto.getMoneyAmount());
         result.setCreatedWhen(dto.getCreatedWhen());
         result.setCreatedBy(dto.getCreatedBy());
         result.setDeletedWhen(dto.getDeletedWhen());
@@ -55,6 +56,7 @@ public class UserMapper extends GenericMapper<UserEntity, UserDto> {
         result.setAddress(entity.getAddress());
         result.setChangePasswordToken(entity.getChangePasswordToken());
         result.setEmail(entity.getEmail());
+        result.setMoneyAmount(entity.getMoneyAmount());
         result.setCreatedWhen(entity.getCreatedWhen());
         result.setCreatedBy(entity.getCreatedBy());
         result.setDeletedWhen(entity.getDeletedWhen());

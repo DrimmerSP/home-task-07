@@ -4,11 +4,27 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Онлайн библиотека</title>
+    <title>Онлайн фильмотека</title>
+    <style>
+        body {
+            background: #d0c2b0 /*url(static/img/background-image.jpg)*/;
+            background-image: url(/static/img/background-image.jpg);
+            /* Цвет фона и путь к файлу */
+            color: #020c0a; /* Цвет текста */
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
     <h3>Добро пожаловать на главную страницу каталога фильмов!</h3>
 </div>
+<main class="content-wrapper">
+    <div class="container">
+        <div layout:fragment="content">
+            <div th:replace="~{/layoutFragments/carousel :: carousel}"></div>
+        </div>
+    </div>
+</main>
 </body>
+<!--    <footer th:insert="~{layoutFragments/footer :: footer}" class="footer"></footer>-->
 </html>

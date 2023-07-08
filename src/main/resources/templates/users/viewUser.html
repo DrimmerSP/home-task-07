@@ -6,6 +6,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Просмотр автора</title>
+  <style>
+    body {
+      background: #d0c2b0 /*url(static/img/background-image.jpg)*/;
+      background-image: url(/static/img/background-image.jpg);
+      /* Цвет фона и путь к файлу */
+      color: #020c0a; /* Цвет текста */
+    }
+  </style>
 </head>
 <body>
 <form layout:fragment="content">
@@ -49,13 +57,21 @@
           <p th:text="${role.getTitle()}" class="form-control-plaintext" id="role">
         </div>
       </div>
+      <div class="mb-2 row">
+        <label for="money" class="col-sm-2 col-form-label">Сумма доступных средств:</label>
+        <div class="col-sm-10">
+          <p th:text="${user.getMoneyAmount()}" class="form-control-plaintext" id="money">
+        </div>
+      </div>
     </form>
     <hr class="hr"/>
     <div class="mt-2">
       <!--      <form method="POST" th:object="${authorSearchForm}" th:action="@{/books/search/booksByAuthor}">-->
       <form>
-        <a sec:authorize="isAuthenticated() && hasRole('USER')" class="btn btn-primary"
+        <a sec:authorize="isAuthenticated() && hasRole('MANAGER')" class="btn btn-primary"
            th:href="'/users/registration/' + ${user.getId()}">Редактировать данные</a>
+        <a sec:authorize="isAuthenticated() && hasRole('MANAGER')" class="btn btn-secondary"
+           th:href="'/users/registration/cash-update/' + ${user.getId()}">Пополнить счет</a>
         <input type="hidden" name="userFIO"
                th:value="${user.getLogin()}">
         <button type="submit" class="btn btn-success">Посмотреть заказы</button>

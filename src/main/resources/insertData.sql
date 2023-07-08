@@ -1,17 +1,40 @@
 INSERT INTO public.directors (id, created_by, created_when, deleted_by, deleted_when, is_deleted, director_fio,
-                              position)
-VALUES (1, 'SYSTEM', '2020-07-03 23:16:17.000000', NULL, NULL, FALSE, 'Sagar S.B.', 1),
-       (2, 'SYSTEM', '2020-11-03 23:16:58.000000', NULL, NULL, FALSE, 'Narione D.V.', 2),
-       (3, 'SYSTEM', '2019-06-03 23:17:23.000000', NULL, NULL, FALSE, 'Leiblez Z.P.', 3);
+                              position, description)
+VALUES (1, 'SYSTEM', '2020-07-03 23:16:17.000000', NULL, NULL, FALSE, 'Sagar S.B.', 1,
+        'Отличный режиссер, снимает классные фильмы'),
+       (2, 'SYSTEM', '2020-11-03 23:16:58.000000', NULL, NULL, FALSE, 'Narione D.V.', 2,
+        'Нормальный режиссер и фильмы нормальные'),
+       (3, 'SYSTEM', '2019-06-03 23:17:23.000000', NULL, NULL, FALSE, 'Leiblez Z.P.', 3,
+        'Так себе режиссер. Фильмы бывают и лучше');
 
 INSERT INTO public.films (id, created_by, created_when, deleted_by, deleted_when, is_deleted, country, description,
-                          genre, premier_date, title)
-VALUES (1, 'SYSTEM', '2014-07-03 23:34:42.000000', NULL, NULL, FALSE, 'TANZANIA', 'calculation pinch never size',
-        'COMEDY', '2020-06-20', 'Night running'),
-       (2, 'SYSTEM', '2020-10-03 23:36:32.000000', NULL, NULL, FALSE, 'UGANDA', 'depend loose foot native', 'ADVENTURE',
-        '2013-06-08', 'Flowers in the rise'),
+                          genre, premier_date, title, price)
+VALUES (1,
+        'SYSTEM',
+        '2014-07-03 23:34:42.000000',
+        NULL,
+        NULL,
+        FALSE,
+        'TANZANIA',
+        'calculation pinch never size',
+        'COMEDY',
+        '2020-06-20',
+        'Night running',
+        '1500'),
+       (2,
+        'SYSTEM',
+        '2020-10-03 23:36:32.000000',
+        NULL,
+        NULL,
+        FALSE,
+        'UGANDA',
+        'depend loose foot native',
+        'ADVENTURE',
+        '2013-06-08',
+        'Flowers in the rise',
+        '1850'),
        (3, 'SYSTEM', '2019-08-05 23:37:40.000000', NULL, NULL, FALSE, 'VIETNAM', 'number composition flour spit',
-        'DETECTIVE', '2023-05-10', 'Taiga');
+        'DETECTIVE', '2023-05-10', 'Taiga', '1375');
 
 INSERT INTO public.role (id, description, title)
 VALUES (1, 'Admin', 'Администратор'),
@@ -33,8 +56,11 @@ INSERT INTO public.users (id,
                           middle_name,
                           password,
                           phone,
-                          role_id)
-VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
+                          role_id,
+                          money_amount)
+VALUES (1,
+        'SYSTEM',
+        '2023-07-03 23:39:18.000000',
         NULL,
         NULL,
         FALSE,
@@ -47,7 +73,8 @@ VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
         'Borisovich',
         'dima',
         '+79881234568',
-        3),
+        3,
+        45000),
        (2,
         'SYSTEM',
         '2023-07-03 23:42:23.000000',
@@ -63,7 +90,8 @@ VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
         'Yurievich',
         'ruslan',
         '+79771234569',
-        3),
+        3,
+        18000),
        (3,
         'SYSTEM',
         '2023-07-03 23:43:57.000000',
@@ -79,7 +107,8 @@ VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
         'Petrovich',
         'Vasya',
         '+79991234567',
-        1),
+        1,
+        1860),
        (4,
         'SYSTEM',
         '2023-07-03 23:45:23.000000',
@@ -95,7 +124,8 @@ VALUES (1, 'SYSTEM', '2023-07-03 23:39:18.000000',
         'stealth',
         '$2a$10$/FAchAsd6gAf1Nz.8rUwduMzOpq7RfhxSdAW0LJNwFSOLeuoD43wm',
         '89150686205',
-        3);
+        3,
+        350000);
 
 
 INSERT INTO public.orders (id, created_by, created_when, deleted_by, deleted_when, is_deleted, is_purchase, is_return,
@@ -108,7 +138,8 @@ VALUES (1, 'SYSTEM', '2023-07-03 23:48:08.000000', NULL, NULL, FALSE, TRUE, FALS
 INSERT INTO public.film_directors (film_id, director_id)
 VALUES (1, 3),
        (2, 2),
-       (3, 1);
+       (3, 1),
+       (1, 2);
 
 INSERT INTO public.order_films (order_id, film_id)
 VALUES (1, 3),

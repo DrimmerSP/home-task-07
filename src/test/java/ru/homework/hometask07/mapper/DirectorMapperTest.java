@@ -11,8 +11,10 @@ import ru.homework.hometask07.dao.entity.DirectorEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class DirectorMapperTest {
@@ -37,7 +39,7 @@ class DirectorMapperTest {
         testDto = new DirectorDto();
         testDto.setDirectorFIO("TestVasya S.G.");
         testDto.setPosition(5);
-        testDto.setFilmIDs(new ArrayList<>());
+        testDto.setFilms(new HashMap<>());
         testDto.setId(8L);
         testDto.setCreatedWhen(LocalDateTime.of(2020, 11, 15, 10, 30));
         testDto.setCreatedBy("TestUser");

@@ -23,6 +23,7 @@ public class UserDto extends GenericDto {
     private String address;
     private String changePasswordToken;
     private String email;
+    private Long moneyAmount;
     private Long roleID;
     private List<Long> orderIds;
 }

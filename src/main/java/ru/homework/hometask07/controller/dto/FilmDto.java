@@ -18,5 +18,6 @@ public final class FilmDto extends GenericDto {
     private Country country;
     private Genre genre;
     private String description;
+    private Long price;
     private Map<Long, String> directors;
 }

@@ -21,6 +21,9 @@ public class DirectorEntity extends GenericEntity {
     @Column(name = "position")
     private Integer position;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany
     @JoinTable(
             name = "film_directors",

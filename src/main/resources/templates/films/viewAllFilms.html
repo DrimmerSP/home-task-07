@@ -7,6 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Фильмы в каталоге</title>
+    <style>
+        body {
+            background: #d0c2b0 /*url(static/img/background-image.jpg)*/;
+            background-image: url(/static/img/background-image.jpg);
+            /* Цвет фона и путь к файлу */
+            color: #020c0a; /* Цвет текста */
+        }
+    </style>
     <!--    <script th:inline="javascript">-->
     <!--        let flag = [[${exception}]];//переменная-флаг в thymeleaf-->
     <!--        window.onload = () => {-->
@@ -62,7 +70,7 @@
                 <h2>Все фильмы</h2>
             </div>
             <div class="col">
-                <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('MANAGER'))"
+                <a sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('USER'))"
                    th:href="@{/films/view/add}"
                    class="btn btn-success"
                    role="button"
@@ -80,6 +88,7 @@
                     <th scope="col">[Страна]</th>
                     <th scope="col">[Премьера]</th>
                     <th scope="col">[Режиссеры]</th>
+                    <th scope="col">[Цена]</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -99,13 +108,14 @@
                             <li th:each="director : ${film.getDirectors().values()}" th:text="${director}"></li>
                         </ul>
                     </td>
+                    <td th:text="${film.getPrice()} + 'р.'"></td>
                     <td>
                         <!--                        <a class="text-link text-blue" th:if="${book.getOnlineCopyPath()} != null" th:href="@{|/books/download?bookId=${book.id}|}">-->
                         <!--                            <span>Скачать книгу</span>-->
                         <!--                        </a>-->
                     </td>
                     <td>
-                        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('ЬФ'))">
+                        <div sec:authorize="isAuthenticated() && (hasRole('ADMIN') || hasRole('USER'))">
                             <a class="btn btn-sm btn-outline-success" th:href="'/films/view/update/' + ${film.getId()}">Обновить</a>
                             <a th:if="${!film.isDeleted()}" class="btn btn-sm btn-outline-danger"
                                th:href="'/film/view/delete/' + ${film.getId()}"
@@ -114,7 +124,7 @@
                                th:href="'/films/view/restore/' + ${film.getId()}">Восстановить</a>
                         </div>
                         <a sec:authorize="!hasRole('ADMIN')" class="btn btn-sm btn-outline-success"
-                           th:href="'/rent/films/' + ${film.getId()}">Купить фильм</a>
+                           th:href="'/rent/film/' + ${film.getId()}">Купить фильм</a>
                     </td>
                 </tr>
                 </tbody>

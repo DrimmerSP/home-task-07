@@ -5,6 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавить фильм</title>
+    <style>
+        body {
+            background: #d0c2b0 /*url(static/img/background-image.jpg)*/;
+            background-image: url(/static/img/background-image.jpg);
+            /* Цвет фона и путь к файлу */
+            color: #020c0a; /* Цвет текста */
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -42,6 +50,12 @@
                 <option th:each="genre : ${T(ru.homework.hometask07.model.Genre).values()}"
                         th:value="${genre}" th:text="${genre.getGenreTextDisplay()}"></option>
             </select>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Цена</label>
+            <input name="price" type="number" class="form-control" id="price" placeholder="Цена фильма" value="350"
+                   required>
+            <div class="invalid-feedback">Обязательное поле для заполнения</div>
         </div>
         <button type="submit" class="btn btn-primary">Добавить</button>
         <button type="button" class="btn btn-secondary" onclick="window.history.back()">Назад</button>

@@ -32,6 +32,7 @@ public class FilmMapper extends GenericMapper<FilmEntity, FilmDto> {
         result.setDeletedWhen(dto.getDeletedWhen());
         result.setDeletedBy(dto.getDeletedBy());
         result.setDeleted(dto.isDeleted());
+        result.setPrice(dto.getPrice());
         return null;
     }
 
@@ -51,6 +52,7 @@ public class FilmMapper extends GenericMapper<FilmEntity, FilmDto> {
         result.setDeletedWhen(entity.getDeletedWhen());
         result.setDeletedBy(entity.getDeletedBy());
         result.setDeleted(entity.isDeleted());
+        result.setPrice(entity.getPrice());
         return result;
     }
 }
